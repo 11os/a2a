@@ -29,7 +29,7 @@ export const json2dart = (json: string, clazz: string) => {
               clazz: FirstUpperCase(key)
             });
           params += wrap(
-            `  ${wrap(`List<${FirstUpperCase(key)}>`, "green")} ${key}; `
+            `  ${wrap(`List&lt;${FirstUpperCase(key)}&gt;`, "green")} ${key}; `
           );
           break;
         case "[object Object]":
@@ -59,7 +59,7 @@ export const json2dart = (json: string, clazz: string) => {
       `  ${wrap("factory", "blue")} ${wrap(clazz, "green")}.${wrap(
         "fromJson",
         "yellow"
-      )}(${wrap("Map<String, dynamic>", "green")} json) => _$${wrap(
+      )}(${wrap("Map&lt;String, dynamic&gt;", "green")} json) => _$${wrap(
         `${clazz}FromJson`,
         "green"
       )}(json);`
@@ -67,7 +67,7 @@ export const json2dart = (json: string, clazz: string) => {
     result += `<br />`;
     result += `<br />`;
     result += wrap(
-      `  ${wrap("Map<String, dynamic>", "green")} ${wrap(
+      `  ${wrap("Map&lt;String, dynamic&gt;", "green")} ${wrap(
         "toJson",
         "yellow"
       )}() => ${wrap(`_$${clazz}ToJson`, "green")}(${wrap("this", "blue")});`

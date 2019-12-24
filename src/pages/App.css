@@ -103,3 +103,8 @@ p {
 .yellow {
   color: #dcdcaa;
 }
+
+.align-right {
+  margin-top: 10px;
+  text-align: right;
+}

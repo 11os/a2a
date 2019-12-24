@@ -69,6 +69,7 @@ const App: React.FC = () => {
           <span onClick={copyClick} dangerouslySetInnerHTML={{ __html: result }}></span>
         </div>
       </div>
+      <p className="align-right">power by gai</p>
     </div>
   );
 }
