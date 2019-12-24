@@ -4,7 +4,7 @@
 
 ## demo
 
-[json2dart.surge.sh](json2dart.surge.sh)
+[json2dart.surge.sh](//json2dart.surge.sh)
 
 ## usage
 install
