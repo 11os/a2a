@@ -59,7 +59,7 @@ export const json2dart = (json: string, clazz: string) => {
       `  ${wrap("factory", "blue")} ${wrap(clazz, "green")}.${wrap(
         "fromJson",
         "yellow"
-      )}(${wrap("Map<<span>String, dynamic>", "green")} json) => _$${wrap(
+      )}(${wrap("Map<String, dynamic>", "green")} json) => _$${wrap(
         `${clazz}FromJson`,
         "green"
       )}(json);`
@@ -67,7 +67,7 @@ export const json2dart = (json: string, clazz: string) => {
     result += `<br />`;
     result += `<br />`;
     result += wrap(
-      `  ${wrap("Map<<span>String, dynamic>", "green")} ${wrap(
+      `  ${wrap("Map<String, dynamic>", "green")} ${wrap(
         "toJson",
         "yellow"
       )}() => ${wrap(`_$${clazz}ToJson`, "green")}(${wrap("this", "blue")});`
