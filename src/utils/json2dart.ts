@@ -1,4 +1,5 @@
-export const handleJson = (json: string, clazz: string) => {
+export const json2dart = (json: string, clazz: string) => {
+  if (!json) return "";
   try {
     let jsonObject = JSON.parse(json);
     let loop = [];
@@ -57,7 +58,7 @@ export const handleJson = (json: string, clazz: string) => {
     result += `}`;
     result += `\n`;
     result += `\n`;
-    result += loop.map(({ json, clazz }) => handleJson(json, clazz)).join("\n");
+    result += loop.map(({ json, clazz }) => json2dart(json, clazz)).join("\n");
     return result;
   } catch (error) {
     return error.message;
