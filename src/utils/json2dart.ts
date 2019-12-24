@@ -21,10 +21,12 @@ export const handleJson = (json: string, clazz: string) => {
           params += `  int ${key}; \n`;
           break;
         case "[object Array]":
-          loop.push({
-            json: JSON.stringify(value[0]),
-            clazz: FirstUpperCase(key)
-          });
+          let obj = value?.[0];
+          obj &&
+            loop.push({
+              json: JSON.stringify(obj),
+              clazz: FirstUpperCase(key)
+            });
           params += `  List<${FirstUpperCase(key)}> ${key}; \n`;
           break;
         case "[object Object]":
