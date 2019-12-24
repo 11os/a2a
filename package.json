@@ -1,5 +1,5 @@
 {
-  "name": "mq-tools",
+  "name": "json2dart",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -19,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "yarn build && surge ./build/ json2dart.surge.sh"
   },
   "eslintConfig": {
     "extends": "react-app"
