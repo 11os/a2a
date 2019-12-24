@@ -3,23 +3,23 @@ export const json2dart = (json: string, clazz: string) => {
   try {
     let jsonObject = JSON.parse(json);
     let loop = [];
-    let result = `@JsonSerializable()`;
-    result += `\n`;
-    result += `class ${clazz} {`;
-    result += `\n`;
+    let result = wrap(`${wrap("@JsonSerializable", "blue")}()`);
+    result += `<br />`;
+    result += wrap(`${wrap("class", "blue")} ${wrap(clazz, "green")} {`);
+    result += `<br />`;
     let params = "";
     let constructor = "";
     for (let key in jsonObject) {
       let value = jsonObject[key];
       switch (Object.prototype.toString.call(value)) {
         case "[object String]":
-          params += `  String ${key}; \n`;
+          params += wrap(`  ${wrap("String", "green")} ${key}; `);
           break;
         case "[object Boolean]":
-          params += `  bool ${key}; \n`;
+          params += wrap(`  ${wrap("bool", "green")} ${key}; `);
           break;
         case "[object Number]":
-          params += `  int ${key}; \n`;
+          params += wrap(`  ${wrap("int", "green")} ${key}; `);
           break;
         case "[object Array]":
           let obj = value?.[0];
@@ -28,42 +28,66 @@ export const json2dart = (json: string, clazz: string) => {
               json: JSON.stringify(obj),
               clazz: FirstUpperCase(key)
             });
-          params += `  List<${FirstUpperCase(key)}> ${key}; \n`;
+          params += wrap(
+            `  ${wrap(`List<${FirstUpperCase(key)}>`, "green")} ${key}; `
+          );
           break;
         case "[object Object]":
           loop.push({
             json: JSON.stringify(value),
             clazz: FirstUpperCase(key)
           });
-          params += `  ${FirstUpperCase(key)} ${key}; \n`;
+          params += wrap(
+            `  ${wrap(`${FirstUpperCase(key)}`, "green")} ${key}; `
+          );
           break;
         default:
-          params += `  String ${key}; \n`;
+          params += wrap(`  ${wrap("String", "green")} ${key}; `);
           break;
       }
-      constructor += `this.${key}, `;
+      params += `<br />`;
+      constructor += `${wrap("this", "blue")}.${key}, `;
     }
     // build params
     result += params;
-    result += `\n`;
+    result += `<br />`;
     // build constructor
-    result += `  ${clazz}({${constructor}});`;
-    result += `\n`;
-    result += `\n`;
-    result += `  factory ${clazz}.fromJson(Map<String, dynamic> json) => _$${clazz}FromJson(json);`;
-    result += `\n`;
-    result += `\n`;
-    result += `  Map<String, dynamic> toJson() => _$${clazz}ToJson(this);`;
-    result += `\n`;
+    result += wrap(`  ${wrap(clazz, "green")}({${constructor}});`);
+    result += `<br />`;
+    result += `<br />`;
+    result += wrap(
+      `  ${wrap("factory", "blue")} ${wrap(clazz, "green")}.${wrap(
+        "fromJson",
+        "yellow"
+      )}(${wrap("Map<<span>String, dynamic>", "green")} json) => _$${wrap(
+        `${clazz}FromJson`,
+        "green"
+      )}(json);`
+    );
+    result += `<br />`;
+    result += `<br />`;
+    result += wrap(
+      `  ${wrap("Map<<span>String, dynamic>", "green")} ${wrap(
+        "toJson",
+        "yellow"
+      )}() => ${wrap(`_$${clazz}ToJson`, "green")}(${wrap("this", "blue")});`
+    );
+    result += `<br />`;
     result += `}`;
-    result += `\n`;
-    result += `\n`;
-    result += loop.map(({ json, clazz }) => json2dart(json, clazz)).join("\n");
+    result += `<br />`;
+    result += `<br />`;
+    result += loop
+      .map(({ json, clazz }) => json2dart(json, clazz))
+      .join("<br />");
     return result;
   } catch (error) {
     return error.message;
   }
 };
+
+const wrap = (value: string, clazz?: string) =>
+  `<span ${wrapClazz(clazz)}>${value}</span>`;
+const wrapClazz = (clazz?: string) => (clazz ? `class="${clazz}"` : "");
 
 const FirstUpperCase = (value: string) => {
   return value.charAt(0).toUpperCase() + value.slice(1);

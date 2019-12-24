@@ -1,3 +1,8 @@
+p {
+  font-size: 16px;
+  margin: 0;
+}
+
 .page-view {
   min-width: 720px;
   padding: 30px;
@@ -80,4 +85,21 @@
   flex: 1;
   border: 1px solid #cccccc;
   border-radius: 10px;
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.green {
+  color: #4ec9b0;
+}
+
+.white {
+}
+
+.blue {
+  color: #569cd6;
+}
+
+.yellow {
+  color: #dcdcaa;
 }

@@ -66,7 +66,7 @@ const App: React.FC = () => {
         </div>
         {/* right */}
         <div className="right-view">
-          <span onClick={copyClick}>{result}</span>
+          <span onClick={copyClick} dangerouslySetInnerHTML={{ __html: result }}></span>
         </div>
       </div>
     </div>
