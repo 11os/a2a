@@ -1,12 +1,25 @@
+const template =
+  '<div><span><span class="blue">@JsonSerializable</span>()</span><br/><span><span class="blue">class </span><span class="green">###CLASS_NAME###</span> {</span><br/>###PARAMS###<br/><span><span class="green">  ###CLASS_NAME###</span>({ ###CONSTRUCTOR###});</span><br/><br/><span><span class="blue">  factory </span><span class="green">###CLASS_NAME###</span>.<span class="yellow">fromJson</span>(<span class="green">Map&lt;String, dynamic&gt;</span> json) =&gt; <span class="green">_$###CLASS_NAME###FromJson</span>(json);</span><br/><br/><span><span class="green">  Map&lt;String, dynamic&gt;</span><span class="yellow"> toJson</span>() =&gt; <span class="green">_$###CLASS_NAME###ToJson</span>(<span class="blue">this</span>);</span><br/>}<br/><br/></div>';
+
+const buildClazz = ({
+  clazz,
+  params,
+  constructor
+}: {
+  clazz: string;
+  params: string;
+  constructor: string;
+}) =>
+  template
+    .replace(/###CLASS_NAME###/g, clazz)
+    .replace(/###PARAMS###/g, params)
+    .replace(/###CONSTRUCTOR###/g, constructor);
+
 export const json2dart = (json: string, clazz: string) => {
   if (!json) return "";
   try {
     let jsonObject = JSON.parse(json);
     let loop = [];
-    let result = span(`${blue("@JsonSerializable")}()`);
-    result += `<br />`;
-    result += span(`${blue("class")} ${green(clazz)} {`);
-    result += `<br />`;
     let params = "";
     let constructor = "";
     for (let key in jsonObject) {
@@ -44,29 +57,8 @@ export const json2dart = (json: string, clazz: string) => {
       params += `<br />`;
       constructor += `${blue("this")}.${key}, `;
     }
-    // build params
-    result += params;
-    result += `<br />`;
-    // build constructor
-    result += span(`  ${green(clazz)}({${constructor}});`);
-    result += `<br />`;
-    result += `<br />`;
-    result += span(
-      `  ${blue("factory")} ${green(clazz)}.${yellow("fromJson")}(${green(
-        "Map&lt;String, dynamic&gt;"
-      )} json) => _$${wrap(`${clazz}FromJson`, "green")}(json);`
-    );
-    result += `<br />`;
-    result += `<br />`;
-    result += span(
-      `  ${green("Map&lt;String, dynamic&gt;")} ${yellow(
-        "toJson"
-      )}() => ${green(`_$${clazz}ToJson`)}(${blue("this")});`
-    );
-    result += `<br />`;
-    result += `}`;
-    result += `<br />`;
-    result += `<br />`;
+    let result = "";
+    result += buildClazz({ clazz, params, constructor });
     result += loop
       .map(({ json, clazz }) => json2dart(json, clazz))
       .join("<br />");
@@ -81,7 +73,6 @@ const wrap = (value: string, clazz?: string) =>
 const span = wrap;
 const green = (value: string) => wrap(value, "green");
 const blue = (value: string) => wrap(value, "blue");
-const yellow = (value: string) => wrap(value, "yellow");
 const wrapClazz = (clazz?: string) => (clazz ? `class="${clazz}"` : "");
 
 const FirstUpperCase = (value: string) => {
