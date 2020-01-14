@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { json2dart } from '../utils/json2dart'
 import './App.css'
 
@@ -9,7 +9,7 @@ const App: React.FC = () => {
   const [result, setResult] = useState('')
   const rightView = useRef(null);
   const confirmClick = () => {
-    setResult(json2dart(json, clazz))
+    // setResult(json2dart(json, clazz))
   }
   const copyClick = (e: any) => {
     let result = e?.target?.innerText
@@ -47,7 +47,7 @@ const App: React.FC = () => {
     setClazz('BaseResponse')
   }
 
-  useEffect(() => setResult(json2dart(json, clazz)), [clazz, json])
+  useEffect(() => setResult(json), [clazz, json])
 
   return (
     <div className="page-view">
@@ -62,19 +62,49 @@ const App: React.FC = () => {
           <input value={clazz} className="left-bottom-view" placeholder="class name eg: LoginResponse" onChange={(e) => { setClazz(e.target.value) }}></input>
           {/* button */}
           <div className="left-button-view">
-            <div className="left-confirm-button" onClick={confirmClick}>生成</div>
+            <div className="left-confirm-button" onClick={confirmClick}>自动生成无需点击</div>
             <div className="left-clean-button" onClick={cleanClick}>清空</div>
             <div className="left-demo-button" onClick={demoClick}>DEMO</div>
           </div>
         </div>
         {/* right */}
         <div ref={rightView} className="right-view" onClick={copyClick} >
-          <span dangerouslySetInnerHTML={{ __html: result }}></span>
+          <ClazzItem result={result} clazzName={clazz} />
         </div>
       </div>
       <p className="align-right">power by gai</p>
     </div>
   );
+}
+
+interface ClazzInfo {
+  result: string
+  clazzName: string
+}
+const ClazzItem: React.FC<ClazzInfo> = ({ result, clazzName }) => {
+  try {
+    const { params, loop } = json2dart(result)
+    return params ? <React.Fragment>
+      <div><span className="blue">@JsonSerializable</span>()</div>
+      {/* class */}
+      <div><span className="blue">class </span><span className="green">{clazzName}</span> {'{'}</div>
+      {/* params */}
+      {params.map((ele: any) => <div key={ele.key}>  <span className="green">{ele.type}</span> {ele.key};</div>)}
+      <br />
+      {/* define */}
+      <div><span className="green">  {clazzName}</span>{'({ '}{params.map((ele: any) => <span key={ele.key}><span className="blue">this</span>.{ele.key}, </span>)}{'})'};</div>
+      <br />
+      <div><span className="blue">  factory </span><span className="green">{clazzName}</span>.<span className="yellow">fromJson</span>(<span className="green">Map&lt;String, dynamic&gt;</span> json) =&gt; <span className="green">_${clazzName}FromJson</span>(json);</div>
+      <br />
+      <div><span className="green">  Map&lt;String, dynamic&gt;</span><span className="yellow"> toJson</span>() =&gt; <span className="green">_${clazzName}ToJson</span>(<span className="blue">this</span>);</div>
+      }
+      <br />
+      <br />
+      {loop && loop.map((ele: any) => <ClazzItem result={ele.json} clazzName={ele.clazz} />)}
+    </React.Fragment> : null
+  } catch (error) {
+    return <div>{error}</div>
+  }
 }
 
 export default App;
