@@ -47,17 +47,7 @@ div {
   margin-top: 10px;
   height: 44px;
   display: flex;
-}
-
-.left-confirm-button {
-  visibility: hidden;
-  flex: 1;
-  background-color: limegreen;
-  border-radius: 10px;
-  color: white;
-  text-align: center;
-  margin-right: 10px;
-  line-height: 44px;
+  justify-content: flex-end;
 }
 
 .left-clean-button {

@@ -2,15 +2,14 @@
 import React, { useState, useRef, useEffect } from 'react'
 import ClazzItem from '../components/ClazzItem'
 import './App.css'
+import { DEMO_JSON } from '../api/mock'
 
 const App: React.FC = () => {
-  const [json, setJson] = useState('')
-  const [clazz, setClazz] = useState('')
+  const [json, setJson] = useState(DEMO_JSON)
+  const [clazz, setClazz] = useState('BaseResponse')
   const [result, setResult] = useState('')
   const rightView = useRef(null);
-  const confirmClick = () => {
-    // setResult(json2dart(json, clazz))
-  }
+
   const copyClick = (e: any) => {
     let result = e?.target?.innerText
     if (!result) return
@@ -21,29 +20,7 @@ const App: React.FC = () => {
     setResult('')
   }
   const demoClick = () => {
-    let json = `{
-      "code": 1,
-      "data": [{
-          "commodityType": 2,
-          "contentNum": 1,
-          "coverUrl": "https://pic.manqian.cn/f16bb207-0b55-4bf4-93d2-034bf535f06d?t=1571975702038",
-          "description": "普通课程-01",
-          "free": false,
-          "hasBuy": false,
-          "href": "javascript:",
-          "id": "4638977926580224",
-          "introduce": "",
-          "name": "普通课程-01",
-          "possess": false,
-          "price": 100,
-          "studentNum": 52
-        }
-      ],
-      "message": "成功",
-      "nowpage": 1,
-      "total": 34
-    }`
-    setJson(json)
+    setJson(DEMO_JSON)
     setClazz('BaseResponse')
   }
 
@@ -62,14 +39,13 @@ const App: React.FC = () => {
           <input value={clazz} className="left-bottom-view" placeholder="class name eg: LoginResponse" onChange={(e) => { setClazz(e.target.value) }}></input>
           {/* button */}
           <div className="left-button-view">
-            <div className="left-confirm-button" onClick={confirmClick}>自动生成无需点击</div>
             <div className="left-clean-button" onClick={cleanClick}>清空</div>
             <div className="left-demo-button" onClick={demoClick}>DEMO</div>
           </div>
         </div>
         {/* right */}
         <div ref={rightView} className="right-view" onClick={copyClick} >
-          <ClazzItem result={result} clazzName={clazz} />
+          {result ? <ClazzItem result={result} clazzName={clazz} /> : "edit json & auto generate dart class"}
         </div>
       </div>
       <p className="align-right">power by gai</p>
