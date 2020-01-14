@@ -4,12 +4,17 @@ p {
 }
 
 .page-view {
-  min-width: 720px;
+  display: flex;
+  flex-flow: column nowrap;
+  min-width: 1280px;
+  min-height: 800px;
   padding: 30px;
+  height: calc(100vh - 60px);
 }
 
 .body-view {
   display: flex;
+  flex: 1;
   margin-top: 10px;
 }
 
@@ -22,6 +27,7 @@ p {
 }
 
 .left-top-view {
+  flex: 1;
   padding: 10px;
   font-size: 16px;
   border: 1px solid #cccccc;

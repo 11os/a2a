@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react'
+/* eslint-disable react/jsx-no-target-blank */
+import React, { useState, useEffect, useRef } from 'react'
 import { json2dart } from '../utils/json2dart'
 import './App.css'
 
@@ -6,11 +7,13 @@ const App: React.FC = () => {
   const [json, setJson] = useState('')
   const [clazz, setClazz] = useState('')
   const [result, setResult] = useState('')
+  const rightView = useRef(null);
   const confirmClick = () => {
     setResult(json2dart(json, clazz))
   }
-  const copyClick = () => {
-
+  const copyClick = (e: any) => {
+    let result = e?.target?.innerText
+    if (!result) return
   }
   const cleanClick = () => {
     setJson('')
@@ -49,7 +52,7 @@ const App: React.FC = () => {
   return (
     <div className="page-view">
       <h1>json2dart</h1>
-      <p>搭配<a href="https://flutter.cn/docs/development/data-and-backend/json">JSON 和序列化数据</a>使用风味更佳</p>
+      <p>搭配<a href="https://flutter.cn/docs/development/data-and-backend/json" target="_blank">JSON 和序列化数据</a>使用风味更佳</p>
       <div className="body-view">
         {/* left */}
         <div className="left-view">
@@ -65,8 +68,8 @@ const App: React.FC = () => {
           </div>
         </div>
         {/* right */}
-        <div className="right-view">
-          <span onClick={copyClick} dangerouslySetInnerHTML={{ __html: result }}></span>
+        <div ref={rightView} className="right-view" onClick={copyClick} >
+          <span dangerouslySetInnerHTML={{ __html: result }}></span>
         </div>
       </div>
       <p className="align-right">power by gai</p>
