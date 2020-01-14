@@ -1,4 +1,4 @@
-p {
+div {
   font-size: 16px;
   margin: 0;
 }
@@ -50,6 +50,7 @@ p {
 }
 
 .left-confirm-button {
+  visibility: hidden;
   flex: 1;
   background-color: limegreen;
   border-radius: 10px;

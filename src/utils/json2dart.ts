@@ -1,9 +1,11 @@
+import { LoopInfo, ParamInfo } from "../entity/ClazzInfo";
+
 export const json2dart = (json: string) => {
   if (!json) return "";
   try {
     let jsonObject = JSON.parse(json);
-    let loop = [];
-    let params = [];
+    let loop: LoopInfo[] = [];
+    let params: ParamInfo[] = [];
     for (let key in jsonObject) {
       let value = jsonObject[key];
       switch (Object.prototype.toString.call(value)) {
