@@ -9,7 +9,7 @@ interface ClazzProps {
 const ClazzItem: React.FC<ClazzProps> = ({ result, clazzName }) => {
   try {
     const { params, loop } = json2dart(result)
-    return params ? <React.Fragment>
+    return params ? <>
       <div><span className="blue">@JsonSerializable</span>()</div>
       {/* class */}
       <div><span className="blue">class </span><span className="green">{clazzName}</span> {'{'}</div>
@@ -23,10 +23,10 @@ const ClazzItem: React.FC<ClazzProps> = ({ result, clazzName }) => {
       <br />
       <div><span className="green">  Map&lt;String, dynamic&gt;</span><span className="yellow"> toJson</span>() =&gt; <span className="green">_${clazzName}ToJson</span>(<span className="blue">this</span>);</div>
       }
-        <br />
+      <br />
       <br />
       {loop && loop.map((ele: LoopInfo, index: number) => <ClazzItem key={index} result={ele.json} clazzName={ele.clazz} />)}
-    </React.Fragment> : null
+    </> : null
   } catch (error) {
     return <div>{error}</div>
   }
