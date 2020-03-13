@@ -1,4 +1,5 @@
 import { LoopInfo, ParamInfo } from "../entity/ClazzInfo";
+import { Node, NodeTypes } from "./json/types";
 
 export const json2dart = (json: string) => {
   if (!json) return "";
@@ -61,3 +62,28 @@ export const json2dart = (json: string) => {
 const FirstUpperCase = (value: string) => {
   return value.charAt(0).toUpperCase() + value.slice(1);
 };
+
+function genDart(node: Node) {
+  let loop: LoopInfo[] = [];
+  let params: ParamInfo[] = [];
+  switch (node.type) {
+    case NodeTypes.Daddy:
+      break;
+    case NodeTypes.ObjectExpression:
+      break;
+    case NodeTypes.ObjectProperty:
+      break;
+    case NodeTypes.ArrayExpression:
+      break;
+    case NodeTypes.StringLiteral:
+      break;
+    case NodeTypes.NumberLiteral:
+      break;
+    case NodeTypes.NullLiteral:
+      break;
+    case NodeTypes.BooleanLiteral:
+      break;
+    default:
+      break;
+  }
+}
