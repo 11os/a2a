@@ -24,7 +24,9 @@ const App: React.FC = () => {
     setClazz('BaseResponse')
   }
 
-  useEffect(() => setResult(json), [clazz, json])
+  useEffect(() => {
+    setResult(json)
+  }, [clazz, json])
 
   return (
     <div className="page-view">

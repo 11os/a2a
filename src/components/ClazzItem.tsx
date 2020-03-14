@@ -1,20 +1,22 @@
 import React from 'react'
 import { json2dart } from '../utils/json2dart'
-import { ParamInfo, LoopInfo } from '../entity/ClazzInfo'
+import { LoopInfo, ParamInfo } from '../entity/ClazzInfo'
+import { AstNode } from '../utils/json/types'
 
 interface ClazzProps {
-  result: string
+  result?: string
+  ast?: AstNode
   clazzName: string
 }
-const ClazzItem: React.FC<ClazzProps> = ({ result, clazzName }) => {
+const ClazzItem: React.FC<ClazzProps> = ({ result, ast, clazzName }) => {
   try {
-    const { params, loop } = json2dart(result)
+    const { params, loop }: { params: ParamInfo[], loop: LoopInfo[] } = json2dart({ result, ast })
     return params ? <>
       <div><span className="blue">@JsonSerializable</span>()</div>
       {/* class */}
       <div><span className="blue">class </span><span className="green">{clazzName}</span> {'{'}</div>
       {/* params */}
-      {params.map((ele: any) => <div key={ele.key}>  <span className="green">{ele.type}</span> {ele.key};</div>)}
+  {params.map((ele: ParamInfo) => <div key={ele.key}>  <span className="green">{ele.type}</span> {ele.key};{ele.comment && <span className="red"> // {ele.comment}</span>}</div>)}
       <br />
       {/* define */}
       <div><span className="green">  {clazzName}</span>{'({ '}{params.map((ele: ParamInfo) => <span key={ele.key}><span className="blue">this</span>.{ele.key}, </span>)}{'})'};</div>
@@ -25,10 +27,10 @@ const ClazzItem: React.FC<ClazzProps> = ({ result, clazzName }) => {
       }
       <br />
       <br />
-      {loop && loop.map((ele: LoopInfo, index: number) => <ClazzItem key={index} result={ele.json} clazzName={ele.clazz} />)}
+      {loop && loop.map((ele: LoopInfo, index: number) => <ClazzItem key={index} ast={ele.node} clazzName={ele.clazz} />)}
     </> : null
-  } catch (error) {
-    return <div>{error}</div>
+  } catch ({ message, location }) {
+    return <div>{message} {JSON.stringify(location.start)}</div>
   }
 }
 
