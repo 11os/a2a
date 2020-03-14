@@ -1,4 +1,4 @@
-import tokenizer from "../json/tokenizer";
+import { tokenizer } from "../json/tokenizer";
 import { TokenTypes } from "../json/types";
 import { ErrorCodes } from "../json/error";
 
@@ -11,6 +11,7 @@ describe("tokenizer object", () => {
       { type: TokenTypes.object, value: "}" }
     ]);
   });
+
   test("object as parent", () => {
     let json = `{"a": "1"}`;
     let tokens = tokenizer(json);
@@ -19,6 +20,30 @@ describe("tokenizer object", () => {
       { type: TokenTypes.string, value: "a" },
       { type: TokenTypes.assign, value: ":" },
       { type: TokenTypes.string, value: "1" },
+      { type: TokenTypes.object, value: "}" }
+    ]);
+  });
+
+  test("object as parent with empty key", () => {
+    let json = `{"": ""}`;
+    let tokens = tokenizer(json);
+    expect(tokens).toMatchObject([
+      { type: TokenTypes.object, value: "{" },
+      { type: TokenTypes.string, value: "" },
+      { type: TokenTypes.assign, value: ":" },
+      { type: TokenTypes.string, value: "" },
+      { type: TokenTypes.object, value: "}" }
+    ]);
+  });
+
+  test("object as parent with float child", () => {
+    let json = `{"a": 100.00}`;
+    let tokens = tokenizer(json);
+    expect(tokens).toMatchObject([
+      { type: TokenTypes.object, value: "{" },
+      { type: TokenTypes.string, value: "a" },
+      { type: TokenTypes.assign, value: ":" },
+      { type: TokenTypes.number, value: "100.00" },
       { type: TokenTypes.object, value: "}" }
     ]);
   });
@@ -154,6 +179,7 @@ describe("tokenizer array", () => {
       { type: TokenTypes.array, value: "]" }
     ]);
   });
+
   test("array as parent with all type child", () => {
     let json = `[{"a": "1"}, null, true, "b", 2, false]`;
     let tokens = tokenizer(json);
@@ -208,6 +234,7 @@ describe("tokenizer error", () => {
         });
       }
     });
+
     test("invalid key with new line", () => {
       try {
         let json = `{\na: 1}`;
@@ -225,6 +252,7 @@ describe("tokenizer error", () => {
       }
     });
   });
+
   describe("invalid object", () => {
     test("invalid object start", () => {
       try {
@@ -232,7 +260,7 @@ describe("tokenizer error", () => {
         tokenizer(json);
       } catch (error) {
         expect(error).toMatchObject({
-          code: ErrorCodes.TOKENIZER_ERROR,
+          code: ErrorCodes.TOKENIZER_PAIR_ERROR,
           location: {
             start: {
               line: 1,
@@ -242,13 +270,14 @@ describe("tokenizer error", () => {
         });
       }
     });
+
     test("invalid object end", () => {
       try {
         let json = `{"a": 1`;
         tokenizer(json);
       } catch (error) {
         expect(error).toMatchObject({
-          code: ErrorCodes.TOKENIZER_ERROR,
+          code: ErrorCodes.TOKENIZER_PAIR_ERROR,
           location: {
             end: {
               line: 1,
@@ -266,7 +295,7 @@ describe("tokenizer error", () => {
         tokenizer(json);
       } catch (error) {
         expect(error).toMatchObject({
-          code: ErrorCodes.TOKENIZER_ERROR,
+          code: ErrorCodes.TOKENIZER_PAIR_ERROR,
           location: {
             start: {
               line: 1,
@@ -277,6 +306,7 @@ describe("tokenizer error", () => {
         });
       }
     });
+
     test("extra comma", () => {
       try {
         let json = `{"a": 1, }`;
@@ -294,6 +324,7 @@ describe("tokenizer error", () => {
         });
       }
     });
+
     test("number with number", () => {
       try {
         let json = `{"a": 1  1}`;
@@ -310,6 +341,7 @@ describe("tokenizer error", () => {
         });
       }
     });
+
     test("newlines number newlines", () => {
       try {
         let json = `\n 123 \n`;
@@ -326,6 +358,7 @@ describe("tokenizer error", () => {
         });
       }
     });
+
     test("single number", () => {
       try {
         let json = `123`;
@@ -345,13 +378,14 @@ describe("tokenizer error", () => {
         });
       }
     });
+
     test("single string", () => {
       try {
         let json = `"1"`;
         tokenizer(json);
       } catch (error) {
         expect(error).toMatchObject({
-          code: ErrorCodes.TOKENIZER_ERROR,
+          code: ErrorCodes.TOKENIZER_PAIR_ERROR,
           location: {
             start: {
               line: 1,
@@ -365,13 +399,34 @@ describe("tokenizer error", () => {
         });
       }
     });
+
+    test("double", () => {
+      try {
+        let json = `[10.0.0]`;
+        tokenizer(json);
+      } catch (error) {
+        expect(error).toMatchObject({
+          code: ErrorCodes.TOKENIZER_ERROR,
+          location: {
+            start: {
+              column: 6
+            },
+            end: {
+              column: 7
+            },
+            source: `.`
+          }
+        });
+      }
+    });
+
     test("single null", () => {
       try {
         let json = `null`;
         tokenizer(json);
       } catch (error) {
         expect(error).toMatchObject({
-          code: ErrorCodes.TOKENIZER_ERROR,
+          code: ErrorCodes.TOKENIZER_PAIR_ERROR,
           location: {
             start: {
               line: 1,
@@ -381,6 +436,50 @@ describe("tokenizer error", () => {
               column: 5
             },
             source: `null`
+          }
+        });
+      }
+    });
+
+    test("invalid comma with all type", () => {
+      try {
+        let json = `{\n"a": ["1"], \n"b": "string", \n"c": 1, , \n"d": null, \n"e": true, \n"f": false\n}`;
+        tokenizer(json);
+      } catch (error) {
+        expect(error).toMatchObject({
+          code: ErrorCodes.TOKENIZER_ERROR,
+          location: {
+            start: {
+              line: 4,
+              column: 9
+            },
+            end: {
+              line: 4,
+              column: 10
+            },
+            source: `,`
+          }
+        });
+      }
+    });
+
+    test("invalid quotes with all type", () => {
+      try {
+        let json = `{\n\r\t"a": ["1"], \r"b": "string", \r\n"c": 1, \n"d": null, \n"e": true, \n""g": false\n}`;
+        tokenizer(json);
+      } catch (error) {
+        expect(error).toMatchObject({
+          code: ErrorCodes.TOKENIZER_ERROR,
+          location: {
+            start: {
+              line: 6,
+              column: 3
+            },
+            end: {
+              line: 6,
+              column: 4
+            },
+            source: `g`
           }
         });
       }

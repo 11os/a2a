@@ -6,7 +6,7 @@ export interface CompilerError extends SyntaxError {
   location: Location;
 }
 
-export function createCompileError(
+export function createCompilerError(
   code: ErrorCodes,
   location: Location,
   messages?: { [code: number]: string }
@@ -19,10 +19,12 @@ export function createCompileError(
 }
 
 export enum ErrorCodes {
-  TOKENIZER_ERROR
+  TOKENIZER_ERROR,
+  TOKENIZER_PAIR_ERROR
 }
 
 export const errorMessages: { [code: number]: string } = {
   // tokenizer errors
-  [ErrorCodes.TOKENIZER_ERROR]: "tokenizer error"
+  [ErrorCodes.TOKENIZER_ERROR]: "tokenizer error",
+  [ErrorCodes.TOKENIZER_PAIR_ERROR]: "tokenizer pair error"
 };

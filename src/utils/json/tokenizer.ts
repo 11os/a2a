@@ -1,5 +1,5 @@
 import { Token, TokenTypes, Location } from "./types";
-import { ErrorCodes, createCompileError } from "./error";
+import { ErrorCodes, createCompilerError } from "./error";
 
 /**
  * json string to token array
@@ -8,7 +8,7 @@ import { ErrorCodes, createCompileError } from "./error";
  *
  * @param text json string
  */
-export default function tokenizer(text: string) {
+export function tokenizer(text: string) {
   // init cursor
   let line = 1,
     column = 1,
@@ -54,7 +54,7 @@ export default function tokenizer(text: string) {
         source: char
       };
       if (preToken?.type === TokenTypes.split) {
-        throw createCompileError(ErrorCodes.TOKENIZER_ERROR, location);
+        throw createCompilerError(ErrorCodes.TOKENIZER_ERROR, location);
       }
       tokens.push({
         type: TokenTypes.object,
@@ -142,7 +142,7 @@ export default function tokenizer(text: string) {
           location
         });
       } else {
-        throw createCompileError(ErrorCodes.TOKENIZER_ERROR, location);
+        throw createCompilerError(ErrorCodes.TOKENIZER_ERROR, location);
       }
       continue;
     }
@@ -176,7 +176,7 @@ export default function tokenizer(text: string) {
           location
         });
       } else {
-        throw createCompileError(ErrorCodes.TOKENIZER_ERROR, location);
+        throw createCompilerError(ErrorCodes.TOKENIZER_ERROR, location);
       }
       continue;
     }
@@ -187,10 +187,27 @@ export default function tokenizer(text: string) {
         line,
         column
       };
-      while (/[0-9]/.test(char)) {
+      let point = 0;
+      while (/[0-9]/.test(char) || "." === char) {
         value += char;
         char = text[++cursor];
         ++column;
+        if (point > 1) {
+          throw createCompilerError(ErrorCodes.TOKENIZER_ERROR, {
+            start: {
+              line,
+              column: column - 1
+            },
+            end: {
+              line,
+              column
+            },
+            source: "."
+          });
+        }
+        if ("." === char) {
+          point++;
+        }
       }
       let location = {
         start,
@@ -208,7 +225,7 @@ export default function tokenizer(text: string) {
           preType
         )
       ) {
-        throw createCompileError(ErrorCodes.TOKENIZER_ERROR, location);
+        throw createCompilerError(ErrorCodes.TOKENIZER_ERROR, location);
       }
       tokens.push({
         type: TokenTypes.number,
@@ -261,7 +278,7 @@ export default function tokenizer(text: string) {
       };
       // "x" :
       if (preToken?.type !== TokenTypes.string) {
-        throw createCompileError(ErrorCodes.TOKENIZER_ERROR, location);
+        throw createCompilerError(ErrorCodes.TOKENIZER_ERROR, location);
       }
       tokens.push({
         type: TokenTypes.assign,
@@ -273,25 +290,30 @@ export default function tokenizer(text: string) {
     }
     // ,
     if (char === ",") {
+      let location = {
+        start: {
+          line,
+          column
+        },
+        end: {
+          line,
+          column: ++column
+        },
+        source: char
+      };
+      let preValue = preToken?.value ?? "";
+      if ([",", "[", "{"].includes(preValue)) {
+        throw createCompilerError(ErrorCodes.TOKENIZER_ERROR, location);
+      }
       tokens.push({
         type: TokenTypes.split,
         value: char,
-        location: {
-          start: {
-            line,
-            column
-          },
-          end: {
-            line,
-            column: ++column
-          },
-          source: char
-        }
+        location
       });
       cursor++;
       continue;
     }
-    throw createCompileError(ErrorCodes.TOKENIZER_ERROR, {
+    throw createCompilerError(ErrorCodes.TOKENIZER_ERROR, {
       start: {
         line,
         column
@@ -311,17 +333,28 @@ function checkTokens(tokens: Token[]) {
     return tokens;
   }
   if (tokens.length === 1) {
-    let startToken = tokens[0];
-    throw createCompileError(ErrorCodes.TOKENIZER_ERROR, startToken.location);
+    let headToken = tokens[0];
+    throw createCompilerError(
+      ErrorCodes.TOKENIZER_PAIR_ERROR,
+      headToken.location
+    );
   }
   if (tokens.length > 1) {
-    let startToken = tokens[0];
-    let endToken = tokens[tokens.length - 1];
-    if (startToken?.value !== "{" && startToken?.value !== "[") {
-      throw createCompileError(ErrorCodes.TOKENIZER_ERROR, startToken.location);
+    let headToken = tokens[0];
+    let tailToken = tokens[tokens.length - 1];
+    if (headToken?.value !== "{" && headToken?.value !== "[") {
+      // start without { or [
+      throw createCompilerError(
+        ErrorCodes.TOKENIZER_PAIR_ERROR,
+        headToken.location
+      );
     }
-    if (endToken?.value !== "}" && endToken?.value !== "]") {
-      throw createCompileError(ErrorCodes.TOKENIZER_ERROR, endToken.location);
+    if (tailToken?.value !== "}" && tailToken?.value !== "]") {
+      // end without ] or }
+      throw createCompilerError(
+        ErrorCodes.TOKENIZER_PAIR_ERROR,
+        tailToken.location
+      );
     }
   }
   // check pair [] {} ""
@@ -334,7 +367,7 @@ function checkTokens(tokens: Token[]) {
     }
   });
   if (stack.length === 0 || stack.length % 2 !== 0) {
-    throw createCompileError(ErrorCodes.TOKENIZER_ERROR, {
+    throw createCompilerError(ErrorCodes.TOKENIZER_PAIR_ERROR, {
       start: { column: 1, line: 1 },
       end: { column: 1, line: 1 },
       source: ""
@@ -343,13 +376,14 @@ function checkTokens(tokens: Token[]) {
     let start = 0;
     let end = stack.length - 1;
     while (end - start >= 1) {
-      let startToken = stack[start];
-      let endToken = stack[end];
-      if (startToken.type !== endToken.type) {
-        throw createCompileError(
-          ErrorCodes.TOKENIZER_ERROR,
-          startToken.location
-        );
+      let headToken = stack[start];
+      let tailToken = stack[end];
+      // FIXME: start type !== end type
+      if (headToken.type !== tailToken.type) {
+        // throw createCompilerError(
+        //   ErrorCodes.TOKENIZER_PAIR_ERROR,
+        //   headToken.location
+        // );
       }
       start++;
       end--;

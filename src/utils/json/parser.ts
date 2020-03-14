@@ -1,8 +1,8 @@
-import { Token, Node, NodeTypes, TokenTypes } from "./types";
+import { Token, AstNode, NodeTypes, TokenTypes } from "./types";
 
-export default function parser(tokens: Token[]) {
+export function parser(tokens: Token[]) {
   let cursor = 0;
-  function walk(): Node {
+  function walk(): AstNode {
     let token: Token = tokens[cursor];
     // null
     if (token.type === TokenTypes.null) {
@@ -26,7 +26,7 @@ export default function parser(tokens: Token[]) {
     if (token.type === TokenTypes.number) {
       cursor++;
       return {
-        type: NodeTypes.NumberLiteral,
+        type: NodeTypes.NumericLiteral,
         value: token.value,
         params: []
       };
@@ -70,7 +70,7 @@ export default function parser(tokens: Token[]) {
     // object
     if (token.type === TokenTypes.object && token.value === "{") {
       token = tokens[++cursor];
-      let node: Node = {
+      let node: AstNode = {
         type: NodeTypes.ObjectExpression,
         params: []
       };
@@ -90,7 +90,7 @@ export default function parser(tokens: Token[]) {
     // array
     if (token.type === TokenTypes.array && token.value === "[") {
       token = tokens[++cursor];
-      let node: Node = {
+      let node: AstNode = {
         type: NodeTypes.ArrayExpression,
         params: []
       };
@@ -111,13 +111,13 @@ export default function parser(tokens: Token[]) {
     console.log("not found", token);
     throw Error(`not found ${token}`);
   }
-  let ast: Node = {
+  let ast: AstNode = {
     type: NodeTypes.Daddy,
     params: []
   };
   while (cursor < tokens.length) {
     ast.params && ast.params.push(walk());
   }
-  // console.log(ast);
+  // console.log(JSON.stringify(ast));
   return ast;
 }

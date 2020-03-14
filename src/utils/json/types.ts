@@ -30,7 +30,7 @@ export enum NodeTypes {
   Daddy,
   BooleanLiteral,
   NullLiteral,
-  NumberLiteral,
+  NumericLiteral,
   ObjectProperty,
   StringLiteral,
   AssignmentExpression,
@@ -39,23 +39,23 @@ export enum NodeTypes {
   ArrayExpression
 }
 
-export interface Node {
+export interface AstNode {
   type: NodeTypes;
   identifier?: string;
-  params?: Node[];
-  value?: string | boolean | number | null;
+  params?: AstNode[];
+  value?: string;
   _context?: any;
 }
 
 export type ObjectExpression = {};
 
-export interface VisitorFunc {
-  (node: Node, parent?: Node): void;
+export interface VisitorCallback {
+  (node: AstNode, parent?: AstNode): void;
 }
 
 export type Visitor = {
-  [key in keyof typeof NodeTypes]?: {
-    enter: VisitorFunc;
-    exit: VisitorFunc;
+  [key in NodeTypes]?: {
+    enter: VisitorCallback;
+    exit?: VisitorCallback;
   };
 };
