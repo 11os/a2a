@@ -1,3 +1,9 @@
+@import "~antd/dist/antd.css";
+
+.App {
+  text-align: center;
+}
+
 div {
   font-size: 16px;
   margin: 0;
@@ -7,14 +13,14 @@ div {
   display: flex;
   flex-flow: column nowrap;
   min-width: 1280px;
-  min-height: 800px;
+  max-height: calc(100vh - 60px);
   padding: 30px;
-  height: calc(100vh - 60px);
 }
 
 .body-view {
   display: flex;
   flex: 1;
+  height: 80vh;
   margin-top: 10px;
 }
 
@@ -22,6 +28,7 @@ div {
   flex: 1;
   width: 50%;
   display: flex;
+  height: 100%;
   flex-flow: column nowrap;
   margin-right: 10px;
 }
@@ -77,6 +84,8 @@ div {
 
 .right-view {
   white-space: pre-wrap;
+  height: 100%;
+  overflow: auto;
   padding: 10px;
   width: 50%;
   flex: 1;

@@ -16,7 +16,7 @@ const ClazzItem: React.FC<ClazzProps> = ({ result, ast, clazzName }) => {
       {/* class */}
       <div><span className="blue">class </span><span className="green">{clazzName}</span> {'{'}</div>
       {/* params */}
-  {params.map((ele: ParamInfo) => <div key={ele.key}>  <span className="green">{ele.type}</span> {ele.key};{ele.comment && <span className="red"> // {ele.comment}</span>}</div>)}
+      {params.map((ele: ParamInfo) => <div key={ele.key}>  <span className="green">{ele.type}</span> {ele.key};{ele.comment && <span className="red"> // {ele.comment}</span>}</div>)}
       <br />
       {/* define */}
       <div><span className="green">  {clazzName}</span>{'({ '}{params.map((ele: ParamInfo) => <span key={ele.key}><span className="blue">this</span>.{ele.key}, </span>)}{'})'};</div>
