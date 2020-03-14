@@ -11,23 +11,6 @@ const App: React.FC = () => {
   const [json, setJson] = useState(DEMO_JSON)
   const [clazz, setClazz] = useState('BaseResponse')
   const [result, setResult] = useState('')
-  useRef(new ClipboardJS('.left-copy-button', {
-    text: function (trigger) {
-      notification.destroy()
-      notification.success({
-        key: 'clipboard',
-        message: 'success',
-        duration: 2,
-        description:
-          'save source to ur clipboard.',
-        onClick: () => {
-          console.log('Notification Clicked!');
-        },
-      });
-      let source: any = document.querySelector('.right-view')
-      return source.innerText
-    },
-  }));
   const rightView = useRef(null);
 
   const cleanClick = () => {
@@ -39,6 +22,26 @@ const App: React.FC = () => {
     setJson(DEMO_JSON)
     setClazz('BaseResponse')
   }
+
+  useEffect(() => {
+    new ClipboardJS('.left-copy-button', {
+      text: function (trigger) {
+        notification.destroy()
+        notification.success({
+          key: 'clipboard',
+          message: 'success',
+          duration: 2,
+          description:
+            'save source to ur clipboard.',
+          onClick: () => {
+            console.log('Notification Clicked!');
+          },
+        });
+        let source: any = document.querySelector('.right-view')
+        return source.innerText
+      },
+    })
+  }, [])
 
   useEffect(() => {
     setResult(json)
@@ -59,7 +62,7 @@ const App: React.FC = () => {
           <div className="left-button-view">
             <div className="left-clean-button" onClick={cleanClick}>clear</div>
             <div className="left-demo-button" onClick={demoClick}>demo</div>
-            <div className="left-copy-button" onClick={demoClick}>copy</div>
+            <div className="left-copy-button">copy</div>
           </div>
         </div>
         {/* right */}
