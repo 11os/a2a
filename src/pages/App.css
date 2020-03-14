@@ -58,25 +58,31 @@ div {
 }
 
 .left-clean-button {
-  padding: 0 30px;
   background-color: lightcoral;
-  border-radius: 10px;
-  color: white;
-  text-align: center;
   margin-right: 10px;
-  line-height: 44px;
 }
 
 .left-demo-button {
-  padding: 0 30px;
   background-color: lightseagreen;
+  margin-right: 10px;
+}
+
+.left-copy-button {
+  background-color: darkblue;
+}
+
+.left-copy-button,
+.left-demo-button,
+.left-clean-button {
+  padding: 0 30px;
   border-radius: 10px;
   color: white;
   text-align: center;
   line-height: 44px;
+  cursor: pointer;
 }
 
-.left-confirm-button:hover,
+.left-copy-button:hover,
 .left-demo-button:hover,
 .left-clean-button:hover {
   opacity: 0.8;

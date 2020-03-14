@@ -11,11 +11,25 @@ const App: React.FC = () => {
   const [json, setJson] = useState(DEMO_JSON)
   const [clazz, setClazz] = useState('BaseResponse')
   const [result, setResult] = useState('')
+  useRef(new ClipboardJS('.left-copy-button', {
+    text: function (trigger) {
+      notification.destroy()
+      notification.success({
+        key: 'clipboard',
+        message: 'success',
+        duration: 2,
+        description:
+          'save source to ur clipboard.',
+        onClick: () => {
+          console.log('Notification Clicked!');
+        },
+      });
+      let source: any = document.querySelector('.right-view')
+      return source.innerText
+    },
+  }));
   const rightView = useRef(null);
 
-  const copyClick = () => {
-
-  }
   const cleanClick = () => {
     setJson('')
     setClazz('')
@@ -28,22 +42,6 @@ const App: React.FC = () => {
 
   useEffect(() => {
     setResult(json)
-    new ClipboardJS('.right-view', {
-      text: function (trigger) {
-        notification.destroy()
-        notification.success({
-          key: 'clipboard',
-          message: 'success',
-          duration: 2,
-          description:
-            'save source to ur clipboard.',
-          onClick: () => {
-            console.log('Notification Clicked!');
-          },
-        });
-        return trigger.innerHTML
-      },
-    });
   }, [clazz, json])
 
   return (
@@ -59,13 +57,14 @@ const App: React.FC = () => {
           <input value={clazz} className="left-bottom-view" placeholder="class name eg: LoginResponse" onChange={(e) => { setClazz(e.target.value) }}></input>
           {/* button */}
           <div className="left-button-view">
-            <div className="left-clean-button" onClick={cleanClick}>清空</div>
-            <div className="left-demo-button" onClick={demoClick}>DEMO</div>
+            <div className="left-clean-button" onClick={cleanClick}>clear</div>
+            <div className="left-demo-button" onClick={demoClick}>demo</div>
+            <div className="left-copy-button" onClick={demoClick}>copy</div>
           </div>
         </div>
         {/* right */}
-        <Tooltip placement="topRight" title="click to copy">
-          <div ref={rightView} className="right-view" onClick={copyClick} >
+        <Tooltip placement="topRight" title="↗ love u ↗">
+          <div ref={rightView} className="right-view">
             {result ? <ClazzItem result={result} clazzName={clazz} /> : "edit json & auto generate dart class"}
           </div>
         </Tooltip>

@@ -2,6 +2,14 @@
   "name": "json2dart",
   "version": "1.1.0",
   "private": true,
+  "scripts": {
+    "dev": "yarn start",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy:surge": "yarn build && surge ./build/ json2dart.surge.sh"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -19,13 +27,6 @@
     "typescript": "~3.7.2"
   },
   "devDependencies": {},
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "deploy": "yarn build && surge ./build/ json2dart.surge.sh"
-  },
   "eslintConfig": {
     "extends": "react-app"
   },
