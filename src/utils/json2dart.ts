@@ -88,7 +88,6 @@ export function json2dart({
               });
               break;
           }
-          console.log(nodeValue, parent);
         }
       }
     }

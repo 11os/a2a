@@ -5690,7 +5690,7 @@ jest-jasmine2@^24.9.0:
   integrity sha512-Cq7vkAgaYKp+PsX+2/JbTarrk0DmNhsEtqBXNwUHkdlbrTBLtMJINADf2mf5FkowNsq8evbPc07/qFO0AdKTzw==
   dependencies:
     "@babel/traverse" "^7.1.0"
-    "@jest/ironment" "^24.9.0"
+    "@jest/environment" "^24.9.0"
     "@jest/test-result" "^24.9.0"
     "@jest/types" "^24.9.0"
     chalk "^2.0.1"
