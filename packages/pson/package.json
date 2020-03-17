@@ -1,9 +1,7 @@
 {
   "name": "@json2any/pson",
-  "version": "1.0.1",
-  "main": "dist/json.cjs.js",
-  "module": "dist/json.esm.js",
-  "browser": "dist/json.js",
+  "version": "1.0.2",
+  "main": "index.ts",
   "dependencies": {},
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.1",

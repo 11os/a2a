@@ -1,7 +1,7 @@
 import { LoopInfo, ParamInfo } from "../entity/ClazzInfo";
-import { AstNode, NodeTypes } from "@json2any/pson/src/main";
-import { traverser } from "@json2any/pson/src/main";
-import { compiler } from "@json2any/pson/src/main";
+import { AstNode, NodeTypes } from "@json2any/pson/index.d";
+import { traverser } from "@json2any/pson";
+import { compiler } from "@json2any/pson";
 
 const FirstUpperCase = (value: string) => {
   return value.charAt(0).toUpperCase() + value.slice(1);

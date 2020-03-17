@@ -10,11 +10,9 @@ export default [
     output: [
       {
         name: "json",
-        file: pkg.browser,
+        file: "dist/json.js",
         format: "umd"
-      },
-      { file: pkg.main, format: "cjs" },
-      { file: pkg.module, format: "es" }
+      }
     ],
     plugins: [
       resolve(), // so Rollup can find `ms`

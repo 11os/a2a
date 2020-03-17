@@ -1,4 +1,4 @@
-import { AstNode } from "../utils/json/types";
+import { AstNode } from "@json2any/pson";
 
 export interface ParamInfo {
   type: string;

@@ -10,7 +10,6 @@
       "registry": "https://npm.pkg.github.com"
     },
     "bootstrap": {
-      "ignore": "component-*",
       "npmClientArgs": ["--no-package-lock"]
     }
   }
