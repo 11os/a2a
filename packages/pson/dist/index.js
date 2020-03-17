@@ -27,9 +27,10 @@
       NodeTypes[NodeTypes["ArrayExpression"] = 9] = "ArrayExpression";
   })(exports.NodeTypes || (exports.NodeTypes = {}));
 
+  var _a;
   function createCompilerError(code, location, messages) {
-      const msg = (messages || errorMessages)[code];
-      const error = new SyntaxError(String(msg));
+      var msg = (messages || errorMessages)[code];
+      var error = new SyntaxError(String(msg));
       error.code = code;
       error.location = location;
       return error;
@@ -38,11 +39,11 @@
       ErrorCodes[ErrorCodes["TOKENIZER_ERROR"] = 0] = "TOKENIZER_ERROR";
       ErrorCodes[ErrorCodes["TOKENIZER_PAIR_ERROR"] = 1] = "TOKENIZER_PAIR_ERROR";
   })(exports.ErrorCodes || (exports.ErrorCodes = {}));
-  const errorMessages = {
+  var errorMessages = (_a = {},
       // tokenizer errors
-      [exports.ErrorCodes.TOKENIZER_ERROR]: "tokenizer error",
-      [exports.ErrorCodes.TOKENIZER_PAIR_ERROR]: "tokenizer pair error"
-  };
+      _a[exports.ErrorCodes.TOKENIZER_ERROR] = "tokenizer error",
+      _a[exports.ErrorCodes.TOKENIZER_PAIR_ERROR] = "tokenizer pair error",
+      _a);
 
   /**
    * json string to token array
@@ -54,21 +55,21 @@
   function tokenizer(text) {
       var _a, _b, _c;
       // init cursor
-      let line = 1, column = 1, cursor = 0;
+      var line = 1, column = 1, cursor = 0;
       // init lexer array
-      let tokens = [];
+      var tokens = [];
       while (cursor < text.length) {
-          let char = text.charAt(cursor);
-          let preToken = tokens.length > 0 ? tokens[tokens.length - 1] : null;
+          var char = text.charAt(cursor);
+          var preToken = tokens.length > 0 ? tokens[tokens.length - 1] : null;
           // {
           if (char === "{") {
-              let location = {
+              var location = {
                   start: {
-                      line,
-                      column
+                      line: line,
+                      column: column
                   },
                   end: {
-                      line,
+                      line: line,
                       column: ++column
                   },
                   source: char
@@ -76,20 +77,20 @@
               tokens.push({
                   type: exports.TokenTypes.object,
                   value: char,
-                  location
+                  location: location
               });
               cursor++;
               continue;
           }
           // }
           if (char === "}") {
-              let location = {
+              var location = {
                   start: {
-                      line,
-                      column
+                      line: line,
+                      column: column
                   },
                   end: {
-                      line,
+                      line: line,
                       column: ++column
                   },
                   source: char
@@ -100,7 +101,7 @@
               tokens.push({
                   type: exports.TokenTypes.object,
                   value: char,
-                  location
+                  location: location
               });
               cursor++;
               continue;
@@ -112,11 +113,11 @@
                   value: char,
                   location: {
                       start: {
-                          line,
-                          column
+                          line: line,
+                          column: column
                       },
                       end: {
-                          line,
+                          line: line,
                           column: ++column
                       },
                       source: char
@@ -132,11 +133,11 @@
                   value: char,
                   location: {
                       start: {
-                          line,
-                          column
+                          line: line,
+                          column: column
                       },
                       end: {
-                          line,
+                          line: line,
                           column: ++column
                       },
                       source: char
@@ -158,21 +159,21 @@
               continue;
           }
           if (char === "n") {
-              let value = "";
-              let target = "null";
-              let start = {
-                  line,
-                  column
+              var value = "";
+              var target = "null";
+              var start = {
+                  line: line,
+                  column: column
               };
               while (target.indexOf(char) > -1) {
                   value += char;
                   char = text[++cursor];
                   ++column;
               }
-              let location = {
-                  start,
+              var location = {
+                  start: start,
                   end: {
-                      line,
+                      line: line,
                       column: column
                   },
                   source: value
@@ -181,7 +182,7 @@
                   tokens.push({
                       type: exports.TokenTypes.null,
                       value: target,
-                      location
+                      location: location
                   });
               }
               else {
@@ -190,24 +191,24 @@
               continue;
           }
           if (char === "t" || char === "f") {
-              let value = "";
-              const target = {
+              var value = "";
+              var target = {
                   t: "true",
                   f: "false"
               }[char];
-              let start = {
-                  line,
-                  column
+              var start = {
+                  line: line,
+                  column: column
               };
               while (target.indexOf(char) > -1) {
                   value += char;
                   char = text[++cursor];
                   ++column;
               }
-              let location = {
-                  start,
+              var location = {
+                  start: start,
                   end: {
-                      line,
+                      line: line,
                       column: column + value.length
                   },
                   source: value
@@ -215,8 +216,8 @@
               if (value === target) {
                   tokens.push({
                       type: exports.TokenTypes.bool,
-                      value,
-                      location
+                      value: value,
+                      location: location
                   });
               }
               else {
@@ -226,12 +227,12 @@
           }
           // number
           if (/[0-9]/.test(char)) {
-              let value = "";
-              let start = {
-                  line,
-                  column
+              var value = "";
+              var start = {
+                  line: line,
+                  column: column
               };
-              let point = 0;
+              var point = 0;
               while (/[0-9]/.test(char) || "." === char) {
                   value += char;
                   char = text[++cursor];
@@ -239,12 +240,12 @@
                   if (point > 1) {
                       throw createCompilerError(exports.ErrorCodes.TOKENIZER_ERROR, {
                           start: {
-                              line,
+                              line: line,
                               column: column - 1
                           },
                           end: {
-                              line,
-                              column
+                              line: line,
+                              column: column
                           },
                           source: "."
                       });
@@ -253,34 +254,34 @@
                       point++;
                   }
               }
-              let location = {
-                  start,
+              var location = {
+                  start: start,
                   end: {
-                      line,
+                      line: line,
                       column: column
                   },
                   source: value
               };
-              let preValue = (_a = preToken === null || preToken === void 0 ? void 0 : preToken.value) !== null && _a !== void 0 ? _a : "";
-              let preType = (_b = preToken === null || preToken === void 0 ? void 0 : preToken.type) !== null && _b !== void 0 ? _b : exports.TokenTypes.number;
+              var preValue = (_a = preToken === null || preToken === void 0 ? void 0 : preToken.value) !== null && _a !== void 0 ? _a : "";
+              var preType = (_b = preToken === null || preToken === void 0 ? void 0 : preToken.type) !== null && _b !== void 0 ? _b : exports.TokenTypes.number;
               if (["}", "]"].includes(preValue) ||
                   ![exports.TokenTypes.split, exports.TokenTypes.assign, exports.TokenTypes.array].includes(preType)) {
                   throw createCompilerError(exports.ErrorCodes.TOKENIZER_ERROR, location);
               }
               tokens.push({
                   type: exports.TokenTypes.number,
-                  value,
-                  location
+                  value: value,
+                  location: location
               });
               continue;
           }
           // string
           if (char === '"') {
-              let value = "";
+              var value = "";
               char = text[++cursor];
-              let start = {
-                  line,
-                  column
+              var start = {
+                  line: line,
+                  column: column
               };
               while (char !== '"') {
                   value += char;
@@ -291,27 +292,27 @@
               column += 2;
               tokens.push({
                   type: exports.TokenTypes.string,
-                  value,
+                  value: value,
                   location: {
-                      start,
+                      start: start,
                       end: {
-                          line,
-                          column
+                          line: line,
+                          column: column
                       },
-                      source: `"${value}"`
+                      source: "\"" + value + "\""
                   }
               });
               continue;
           }
           // :
           if (char === ":") {
-              let location = {
+              var location = {
                   start: {
-                      line,
-                      column
+                      line: line,
+                      column: column
                   },
                   end: {
-                      line,
+                      line: line,
                       column: ++column
                   },
                   source: char
@@ -323,43 +324,43 @@
               tokens.push({
                   type: exports.TokenTypes.assign,
                   value: char,
-                  location
+                  location: location
               });
               cursor++;
               continue;
           }
           // ,
           if (char === ",") {
-              let location = {
+              var location = {
                   start: {
-                      line,
-                      column
+                      line: line,
+                      column: column
                   },
                   end: {
-                      line,
+                      line: line,
                       column: ++column
                   },
                   source: char
               };
-              let preValue = (_c = preToken === null || preToken === void 0 ? void 0 : preToken.value) !== null && _c !== void 0 ? _c : "";
+              var preValue = (_c = preToken === null || preToken === void 0 ? void 0 : preToken.value) !== null && _c !== void 0 ? _c : "";
               if ([",", "[", "{"].includes(preValue)) {
                   throw createCompilerError(exports.ErrorCodes.TOKENIZER_ERROR, location);
               }
               tokens.push({
                   type: exports.TokenTypes.split,
                   value: char,
-                  location
+                  location: location
               });
               cursor++;
               continue;
           }
           throw createCompilerError(exports.ErrorCodes.TOKENIZER_ERROR, {
               start: {
-                  line,
-                  column
+                  line: line,
+                  column: column
               },
               end: {
-                  line,
+                  line: line,
                   column: ++column
               },
               source: char
@@ -372,12 +373,12 @@
           return tokens;
       }
       if (tokens.length === 1) {
-          let headToken = tokens[0];
+          var headToken = tokens[0];
           throw createCompilerError(exports.ErrorCodes.TOKENIZER_PAIR_ERROR, headToken.location);
       }
       if (tokens.length > 1) {
-          let headToken = tokens[0];
-          let tailToken = tokens[tokens.length - 1];
+          var headToken = tokens[0];
+          var tailToken = tokens[tokens.length - 1];
           if ((headToken === null || headToken === void 0 ? void 0 : headToken.value) !== "{" && (headToken === null || headToken === void 0 ? void 0 : headToken.value) !== "[") {
               // start without { or [
               throw createCompilerError(exports.ErrorCodes.TOKENIZER_PAIR_ERROR, headToken.location);
@@ -388,8 +389,8 @@
           }
       }
       // check pair [] {} ""
-      let stack = [];
-      tokens.forEach((token, index) => {
+      var stack = [];
+      tokens.forEach(function (token, index) {
           switch (token.type) {
               case exports.TokenTypes.object:
               case exports.TokenTypes.array:
@@ -404,11 +405,11 @@
           });
       }
       else {
-          let start = 0;
-          let end = stack.length - 1;
+          var start = 0;
+          var end = stack.length - 1;
           while (end - start >= 1) {
-              let headToken = stack[start];
-              let tailToken = stack[end];
+              var headToken = stack[start];
+              var tailToken = stack[end];
               // FIXME: start type !== end type
               if (headToken.type !== tailToken.type) ;
               start++;
@@ -419,10 +420,10 @@
   }
 
   function parser(tokens) {
-      let cursor = 0;
+      var cursor = 0;
       function walk() {
           var _a, _b, _c, _d;
-          let token = tokens[cursor];
+          var token = tokens[cursor];
           // null
           if (token.type === exports.TokenTypes.null) {
               cursor++;
@@ -453,12 +454,12 @@
           // string
           if (token.type === exports.TokenTypes.string) {
               cursor++;
-              let next = tokens[cursor];
+              var next = tokens[cursor];
               if (next.type === exports.TokenTypes.assign) {
                   cursor++;
                   return {
                       type: exports.NodeTypes.ObjectProperty,
-                      identifier: `${token.value}`,
+                      identifier: "" + token.value,
                       params: [walk()]
                   };
               }
@@ -489,13 +490,13 @@
           // object
           if (token.type === exports.TokenTypes.object && token.value === "{") {
               token = tokens[++cursor];
-              let node = {
+              var node = {
                   type: exports.NodeTypes.ObjectExpression,
                   params: []
               };
               while (token.type !== exports.TokenTypes.object ||
                   (token.type === exports.TokenTypes.object && token.value !== "}")) {
-                  let next = walk();
+                  var next = walk();
                   if ((next === null || next === void 0 ? void 0 : next.type) !== exports.NodeTypes.SplitExpression) {
                       (_b = (_a = node === null || node === void 0 ? void 0 : node.params) === null || _a === void 0 ? void 0 : _a.push) === null || _b === void 0 ? void 0 : _b.call(_a, next);
                   }
@@ -507,13 +508,13 @@
           // array
           if (token.type === exports.TokenTypes.array && token.value === "[") {
               token = tokens[++cursor];
-              let node = {
+              var node = {
                   type: exports.NodeTypes.ArrayExpression,
                   params: []
               };
               while (token.type !== exports.TokenTypes.array ||
                   (token.type === exports.TokenTypes.array && token.value !== "]")) {
-                  let next = walk();
+                  var next = walk();
                   if ((next === null || next === void 0 ? void 0 : next.type) !== exports.NodeTypes.SplitExpression) {
                       (_d = (_c = node === null || node === void 0 ? void 0 : node.params) === null || _c === void 0 ? void 0 : _c.push) === null || _d === void 0 ? void 0 : _d.call(_c, next);
                   }
@@ -524,9 +525,9 @@
           }
           // not found
           console.log("not found", token);
-          throw Error(`not found ${token}`);
+          throw Error("not found " + token);
       }
-      let ast = {
+      var ast = {
           type: exports.NodeTypes.Daddy,
           params: []
       };
@@ -544,14 +545,15 @@
    * @param deep
    * @param visitor
    */
-  function traverser({ ast, deep = true, visitor }) {
+  function traverser(_a) {
+      var ast = _a.ast, _b = _a.deep, deep = _b === void 0 ? true : _b, visitor = _a.visitor;
       function traveresArray(array, parent) {
-          array.forEach(child => {
+          array.forEach(function (child) {
               traverseNode(child, parent);
           });
       }
       function traverseNode(node, parent) {
-          let method = visitor[node.type];
+          var method = visitor[node.type];
           if (method && method.enter) {
               method.enter(node, parent);
           }
@@ -585,18 +587,19 @@
    * @param ast
    */
   function transformer(ast) {
-      let newAst = {
+      var _a;
+      var newAst = {
           type: exports.NodeTypes.Daddy,
           params: []
       };
       ast._context = newAst.params;
       traverser({
           ast: ast,
-          visitor: {
-              [exports.NodeTypes.ObjectExpression]: {
-                  enter(node, parent) {
+          visitor: (_a = {},
+              _a[exports.NodeTypes.ObjectExpression] = {
+                  enter: function (node, parent) {
                       node._context = node.params;
-                      let expression = {
+                      var expression = {
                           type: exports.NodeTypes.ObjectExpression,
                           params: []
                       };
@@ -604,11 +607,11 @@
                       if (node.type === exports.NodeTypes.ObjectExpression) ;
                       parent === null || parent === void 0 ? void 0 : parent._context.push(expression);
                   },
-                  exit(node, parent) { }
+                  exit: function (node, parent) { }
               },
-              [exports.NodeTypes.ObjectProperty]: {
-                  enter(node, parent) {
-                      let expression = {
+              _a[exports.NodeTypes.ObjectProperty] = {
+                  enter: function (node, parent) {
+                      var expression = {
                           type: exports.NodeTypes.ObjectProperty,
                           identifier: node.identifier,
                           params: []
@@ -616,52 +619,52 @@
                       node._context = expression.params;
                       parent === null || parent === void 0 ? void 0 : parent._context.push(expression);
                   },
-                  exit(node, parent) { }
+                  exit: function (node, parent) { }
               },
-              [exports.NodeTypes.ArrayExpression]: {
-                  enter(node, parent) {
-                      let expression = {
+              _a[exports.NodeTypes.ArrayExpression] = {
+                  enter: function (node, parent) {
+                      var expression = {
                           type: exports.NodeTypes.ArrayExpression,
                           params: []
                       };
                       node._context = expression.params;
                       parent === null || parent === void 0 ? void 0 : parent._context.push(expression);
                   },
-                  exit(node, parent) { }
+                  exit: function (node, parent) { }
               },
-              [exports.NodeTypes.StringLiteral]: {
-                  enter(node, parent) {
+              _a[exports.NodeTypes.StringLiteral] = {
+                  enter: function (node, parent) {
                       parent === null || parent === void 0 ? void 0 : parent._context.push(node);
                   },
-                  exit(node, parent) { }
+                  exit: function (node, parent) { }
               },
-              [exports.NodeTypes.NumericLiteral]: {
-                  enter(node, parent) {
+              _a[exports.NodeTypes.NumericLiteral] = {
+                  enter: function (node, parent) {
                       parent === null || parent === void 0 ? void 0 : parent._context.push(node);
                   },
-                  exit(node, parent) { }
+                  exit: function (node, parent) { }
               },
-              [exports.NodeTypes.NullLiteral]: {
-                  enter(node, parent) {
+              _a[exports.NodeTypes.NullLiteral] = {
+                  enter: function (node, parent) {
                       parent === null || parent === void 0 ? void 0 : parent._context.push(node);
                   },
-                  exit(node, parent) { }
+                  exit: function (node, parent) { }
               },
-              [exports.NodeTypes.BooleanLiteral]: {
-                  enter(node, parent) {
+              _a[exports.NodeTypes.BooleanLiteral] = {
+                  enter: function (node, parent) {
                       parent === null || parent === void 0 ? void 0 : parent._context.push(node);
                   },
-                  exit(node, parent) { }
-              }
-          }
+                  exit: function (node, parent) { }
+              },
+              _a)
       });
       return newAst;
   }
 
   function compiler(json) {
-      let tokens = tokenizer(json);
-      let ast = parser(tokens);
-      let newAst = transformer(ast);
+      var tokens = tokenizer(json);
+      var ast = parser(tokens);
+      var newAst = transformer(ast);
       return newAst;
   }
 
