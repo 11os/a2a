@@ -391,3 +391,5 @@ function checkTokens(tokens: Token[]) {
   }
   return tokens;
 }
+
+export default tokenizer;

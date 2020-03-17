@@ -1,7 +1,7 @@
-import { transformer } from "../json/transformer";
-import { parser } from "../json/parser";
-import { tokenizer } from "../json/tokenizer";
-import { NodeTypes } from "../json/types";
+import { transformer } from "../src/transformer";
+import { parser } from "../src/parser";
+import { tokenizer } from "../src/tokenizer";
+import { NodeTypes } from "../src/types";
 
 describe("transfomer object", () => {
   test("newAst = ast", () => {

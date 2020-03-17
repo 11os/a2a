@@ -1,5 +1,12 @@
 import { NodeTypes, AstNode, Visitor } from "./types";
 
+/**
+ * enter & exit ast node
+ *
+ * @param ast
+ * @param deep
+ * @param visitor
+ */
 export function traverser({
   ast,
   deep = true,
@@ -44,6 +51,11 @@ export function traverser({
   traverseNode(ast);
 }
 
+/**
+ * origin ast to transformed ast
+ *
+ * @param ast
+ */
 export function transformer(ast: AstNode): AstNode {
   let newAst: AstNode = {
     type: NodeTypes.Daddy,

@@ -1,6 +1,6 @@
-import { tokenizer } from "../json/tokenizer";
-import { TokenTypes } from "../json/types";
-import { ErrorCodes } from "../json/error";
+import { tokenizer } from "../src/tokenizer";
+import { TokenTypes } from "../src/types";
+import { ErrorCodes } from "../src/error";
 
 describe("tokenizer object", () => {
   test("empty object", () => {

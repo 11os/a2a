@@ -1,0 +1,12 @@
+0 silly argv {
+0 silly argv   _: [ 'add' ],
+0 silly argv   scope: 'json2dart',
+0 silly argv   globs: [],
+0 silly argv   lernaVersion: '3.20.2',
+0 silly argv   '$0': '/usr/local/bin/lerna',
+0 silly argv   pkg: '@json2any/json'
+0 silly argv }
+1 notice cli v3.20.2
+2 verbose rootPath /Users/haozhong/project/json2any
+3 error Error: 404 Not Found - GET https://registry.npmjs.org/@json2any%2fjson - Not found
+3 error     at /Users/haozhong/project/json2any/node_modules/@evocateur/npm-registry-fetch/check-response.js:104:15
