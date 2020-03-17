@@ -1,6 +1,6 @@
-import { parser } from "../src/main";
-import { tokenizer } from "../src/main";
-import { NodeTypes } from "../src/main";
+import { parser } from "../src/parser";
+import { tokenizer } from "../src/tokenizer";
+import { NodeTypes } from "../src/types";
 
 describe("parse object", () => {
   test("parse object with all type", () => {

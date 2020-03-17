@@ -68,7 +68,7 @@ const App: React.FC = () => {
         {/* right */}
         <Tooltip placement="topRight" title="↗ love u ↗">
           <div ref={rightView} className="right-view">
-            {/* {result ? <ClazzItem result={result} clazzName={clazz} /> : "edit json & auto generate dart class"} */}
+            {result ? <ClazzItem result={result} clazzName={clazz} /> : "edit json & auto generate dart class"}
           </div>
         </Tooltip>
       </div>

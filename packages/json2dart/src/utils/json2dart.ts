@@ -1,7 +1,7 @@
 import { LoopInfo, ParamInfo } from "../entity/ClazzInfo";
-import { AstNode, NodeTypes } from "@json2any/pson/index.d";
-import { traverser } from "@json2any/pson";
-import { compiler } from "@json2any/pson";
+import { AstNode, NodeTypes } from "@json2any/pson/dist/index";
+import { traverser } from "@json2any/pson/dist/index";
+import { compiler } from "@json2any/pson/dist/index";
 
 const FirstUpperCase = (value: string) => {
   return value.charAt(0).toUpperCase() + value.slice(1);
@@ -29,7 +29,7 @@ export function json2dart({
     deep: false,
     visitor: {
       [NodeTypes.ObjectProperty]: {
-        enter(node, parent) {
+        enter(node: AstNode, parent?: AstNode) {
           let nodeValue: AstNode | undefined = node.params?.[0];
           let key = node.identifier || "";
           let clazz = FirstUpperCase(key);

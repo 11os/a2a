@@ -6,11 +6,11 @@ import pkg from "./package.json";
 export default [
   // browser-friendly UMD build
   {
-    input: "src/main.ts",
+    input: "src/index.ts",
     output: [
       {
         name: "json",
-        file: "dist/json.js",
+        file: pkg.main,
         format: "umd"
       }
     ],
