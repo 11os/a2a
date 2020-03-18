@@ -111,6 +111,7 @@ export default function Editor() {
           padding: 20px;
           font-size: 18px;
           line-height: 24px;
+          outline: none;
         }
         .editor-body-right {
           border: 1px solid #1e1e1e;
