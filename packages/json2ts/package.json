@@ -1,0 +1,29 @@
+{
+  "name": "json2ts",
+  "version": "1.0.0",
+  "description": "json to typescript",
+  "repository": "https://github.com/11os/json2any",
+  "author": "12",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next",
+    "build": "next build && next export",
+    "start": "next start",
+    "deploy:surge": "yarn build && surge ./out/ json2ts.surge.sh"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@types/clipboard": "^2.0.1",
+    "clipboard": "^2.0.6",
+    "next": "^9.3.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.9.1",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
+    "typescript": "^3.8.3"
+  }
+}
