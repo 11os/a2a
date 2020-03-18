@@ -7,9 +7,13 @@
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
     "dev:dart": "cd packages/json2dart && yarn dev",
+    "dev:ts": "cd packages/json2ts && yarn dev",
     "dev:pson": "cd packages/pson && yarn dev",
     "build:dart": "cd packages/json2dart && yarn build",
-    "build:pson": "cd packages/pson && yarn build"
+    "build:ts": "cd packages/json2ts && yarn build",
+    "build:pson": "cd packages/pson && yarn build",
+    "deploy:dart": "cd packages/json2dart && yarn deploy:surge",
+    "deploy:ts": "cd packages/json2ts && yarn deploy:surge"
   },
   "devDependencies": {
     "lerna": "^3.20.2"

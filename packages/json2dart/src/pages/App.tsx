@@ -30,12 +30,8 @@ const App: React.FC = () => {
         notification.success({
           key: 'clipboard',
           message: 'success',
+          description: 'save source to ur clipboard.',
           duration: 2,
-          description:
-            'save source to ur clipboard.',
-          onClick: () => {
-            console.log('Notification Clicked!');
-          },
         });
         let source: any = document.querySelector('.right-view')
         return source.innerText

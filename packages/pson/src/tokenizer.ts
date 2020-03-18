@@ -243,6 +243,18 @@ export function tokenizer(text: string) {
         column
       };
       while (char !== '"') {
+        if (cursor > text.length) {
+          if (preToken?.type !== TokenTypes.string) {
+            throw createCompilerError(ErrorCodes.TOKENIZER_ERROR, {
+              start,
+              end: {
+                line,
+                column
+              },
+              source: value
+            });
+          }
+        }
         value += char;
         char = text[++cursor];
         ++column;

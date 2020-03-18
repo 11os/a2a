@@ -284,6 +284,18 @@
                   column: column
               };
               while (char !== '"') {
+                  if (cursor > text.length) {
+                      if ((preToken === null || preToken === void 0 ? void 0 : preToken.type) !== exports.TokenTypes.string) {
+                          throw createCompilerError(exports.ErrorCodes.TOKENIZER_ERROR, {
+                              start: start,
+                              end: {
+                                  line: line,
+                                  column: column
+                              },
+                              source: value
+                          });
+                      }
+                  }
                   value += char;
                   char = text[++cursor];
                   ++column;

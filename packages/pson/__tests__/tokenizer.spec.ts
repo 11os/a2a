@@ -271,6 +271,27 @@ describe("tokenizer error", () => {
       }
     });
 
+    test("invalid object param", () => {
+      try {
+        let json = `{"a }`;
+        tokenizer(json);
+      } catch (error) {
+        expect(error).toMatchObject({
+          code: ErrorCodes.TOKENIZER_ERROR,
+          location: {
+            start: {
+              line: 1,
+              column: 2
+            },
+            end: {
+              line: 1,
+              column: 6
+            }
+          }
+        });
+      }
+    });
+
     test("invalid object end", () => {
       try {
         let json = `{"a": 1`;

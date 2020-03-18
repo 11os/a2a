@@ -90,8 +90,8 @@ div {
 
 .right-view {
   white-space: pre-wrap;
-  height: 100%;
   overflow: auto;
+  height: 100%;
   padding: 10px;
   width: 50%;
   flex: 1;

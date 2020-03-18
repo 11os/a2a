@@ -7,7 +7,7 @@ const FirstUpperCase = (value: string) => {
   return value.charAt(0).toUpperCase() + value.slice(1);
 };
 
-export function json2dart({
+export function json2ts({
   result = "",
   ast
 }: {
@@ -32,7 +32,7 @@ export function json2dart({
     deep: false,
     visitor: {
       [NodeTypes.ObjectProperty]: {
-        enter(node: AstNode, parent?: AstNode) {
+        enter(node: AstNode) {
           let nodeValue: AstNode | undefined = node.params?.[0];
           let key = node.identifier || "";
           let clazz = FirstUpperCase(key);
@@ -44,12 +44,12 @@ export function json2dart({
               });
               break;
             case NodeTypes.NumericLiteral:
-              let type = "int";
+              let type = "number";
               let value = nodeValue?.value ?? "0";
               if (value.includes(".")) {
-                type = "double";
+                type = "number";
               } else if (value?.length >= 10) {
-                type = "Int64";
+                type = "number";
               }
               pushParams({
                 type,
@@ -68,7 +68,7 @@ export function json2dart({
               break;
             case NodeTypes.ArrayExpression:
               pushParams({
-                type: `List<${clazz}>`,
+                type: `${clazz}[]`,
                 key
               });
               loop.push({
@@ -78,14 +78,14 @@ export function json2dart({
               break;
             case NodeTypes.StringLiteral:
               pushParams({
-                type: "String",
+                type: "string",
                 key
               });
               break;
             case NodeTypes.NullLiteral:
             default:
               pushParams({
-                type: "Null",
+                type: "any",
                 key,
                 comment: "⚠️⚠️⚠️ contact ur backend developer plz"
               });
