@@ -1,4 +1,5 @@
 import { Token, AstNode, NodeTypes, TokenTypes } from "./types";
+import { ErrorCodes, createCompilerError } from "./error";
 
 export function parser(tokens: Token[]) {
   let cursor = 0;
@@ -108,8 +109,11 @@ export function parser(tokens: Token[]) {
       return node;
     }
     // not found
-    console.log("not found", token);
-    throw Error(`not found ${token}`);
+    throw createCompilerError(
+      ErrorCodes.PARSER_ERROR,
+      token.location,
+      `token not found ${JSON.stringify(token)}`
+    );
   }
   let ast: AstNode = {
     type: NodeTypes.Daddy,

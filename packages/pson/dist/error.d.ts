@@ -9,7 +9,8 @@ export declare function createCompilerError(code: ErrorCodes, location: Location
 }): CompilerError;
 export declare enum ErrorCodes {
     TOKENIZER_ERROR = 0,
-    TOKENIZER_PAIR_ERROR = 1
+    TOKENIZER_PAIR_ERROR = 1,
+    PARSER_ERROR = 2
 }
 export declare const errorMessages: {
     [code: number]: string;

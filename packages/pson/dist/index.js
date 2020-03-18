@@ -29,7 +29,9 @@
 
   var _a;
   function createCompilerError(code, location, messages) {
-      var msg = (messages || errorMessages)[code];
+      var msg = messages
+          ? errorMessages[code] + " " + messages
+          : errorMessages[code];
       var error = new SyntaxError(String(msg));
       error.code = code;
       error.location = location;
@@ -38,11 +40,13 @@
   (function (ErrorCodes) {
       ErrorCodes[ErrorCodes["TOKENIZER_ERROR"] = 0] = "TOKENIZER_ERROR";
       ErrorCodes[ErrorCodes["TOKENIZER_PAIR_ERROR"] = 1] = "TOKENIZER_PAIR_ERROR";
+      ErrorCodes[ErrorCodes["PARSER_ERROR"] = 2] = "PARSER_ERROR";
   })(exports.ErrorCodes || (exports.ErrorCodes = {}));
   var errorMessages = (_a = {},
       // tokenizer errors
       _a[exports.ErrorCodes.TOKENIZER_ERROR] = "tokenizer error",
       _a[exports.ErrorCodes.TOKENIZER_PAIR_ERROR] = "tokenizer pair error",
+      _a[exports.ErrorCodes.PARSER_ERROR] = "parser error",
       _a);
 
   /**
@@ -536,8 +540,7 @@
               return node;
           }
           // not found
-          console.log("not found", token);
-          throw Error("not found " + token);
+          throw createCompilerError(exports.ErrorCodes.PARSER_ERROR, token.location, "token not found " + JSON.stringify(token));
       }
       var ast = {
           type: exports.NodeTypes.Daddy,
