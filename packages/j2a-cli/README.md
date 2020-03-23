@@ -15,11 +15,11 @@ json to any
 # Usage
 <!-- usage -->
 ```sh-session
-$ npm install -g j2a-cli
+$ npm install -g @j2a/j2a-cli
 $ j2a COMMAND
 running command...
 $ j2a (-v|--version|version)
-j2a-cli/1.0.0 darwin-x64 node-v12.13.1
+@j2a/j2a-cli/1.1.0 darwin-x64 node-v10.13.0
 $ j2a --help [COMMAND]
 USAGE
   $ j2a COMMAND

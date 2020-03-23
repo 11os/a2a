@@ -1,7 +1,7 @@
 {
   "name": "@j2a/j2a-cli",
   "description": "json to any",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "author": "11 @11os",
   "bin": {
     "j2a": "./bin/run"
