@@ -385,21 +385,6 @@ function checkTokens(tokens: Token[]) {
       source: ""
     });
   } else {
-    let start = 0;
-    let end = stack.length - 1;
-    while (end - start >= 1) {
-      let headToken = stack[start];
-      let tailToken = stack[end];
-      // FIXME: start type !== end type
-      if (headToken.type !== tailToken.type) {
-        // throw createCompilerError(
-        //   ErrorCodes.TOKENIZER_PAIR_ERROR,
-        //   headToken.location
-        // );
-      }
-      start++;
-      end--;
-    }
   }
   return tokens;
 }

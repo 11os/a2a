@@ -26,6 +26,17 @@
       NodeTypes[NodeTypes["ObjectExpression"] = 8] = "ObjectExpression";
       NodeTypes[NodeTypes["ArrayExpression"] = 9] = "ArrayExpression";
   })(exports.NodeTypes || (exports.NodeTypes = {}));
+  (function (JsonType) {
+      JsonType[JsonType["int"] = 0] = "int";
+      JsonType[JsonType["bigInt"] = 1] = "bigInt";
+      JsonType[JsonType["double"] = 2] = "double";
+      JsonType[JsonType["string"] = 3] = "string";
+      JsonType[JsonType["object"] = 4] = "object";
+      JsonType[JsonType["array"] = 5] = "array";
+      JsonType[JsonType["bool"] = 6] = "bool";
+      JsonType[JsonType["null"] = 7] = "null";
+      JsonType[JsonType["any"] = 8] = "any";
+  })(exports.JsonType || (exports.JsonType = {}));
 
   var _a;
   function createCompilerError(code, location, messages) {
@@ -420,18 +431,6 @@
               source: ""
           });
       }
-      else {
-          var start = 0;
-          var end = stack.length - 1;
-          while (end - start >= 1) {
-              var headToken = stack[start];
-              var tailToken = stack[end];
-              // FIXME: start type !== end type
-              if (headToken.type !== tailToken.type) ;
-              start++;
-              end--;
-          }
-      }
       return tokens;
   }
 
@@ -597,6 +596,8 @@
       traverseNode(ast);
   }
   /**
+   * TODO: ts or dart
+   *
    * origin ast to transformed ast
    *
    * @param ast
@@ -619,7 +620,6 @@
                           params: []
                       };
                       node._context = expression.params;
-                      if (node.type === exports.NodeTypes.ObjectExpression) ;
                       parent === null || parent === void 0 ? void 0 : parent._context.push(expression);
                   },
                   exit: function (node, parent) { }

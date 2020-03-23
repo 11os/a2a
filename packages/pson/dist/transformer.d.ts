@@ -12,6 +12,8 @@ export declare function traverser({ ast, deep, visitor }: {
     deep?: boolean;
 }): void;
 /**
+ * TODO: ts or dart
+ *
  * origin ast to transformed ast
  *
  * @param ast
