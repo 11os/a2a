@@ -1,5 +1,5 @@
 {
-  "name": "@json2any/json2dart",
+  "name": "@j2a/json2dart",
   "version": "1.1.0",
   "private": true,
   "scripts": {

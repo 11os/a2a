@@ -1,5 +1,5 @@
 {
-  "name": "j2a-cli",
+  "name": "@j2a/j2a-cli",
   "description": "json to any",
   "version": "1.0.0",
   "author": "11 @11os",

@@ -1,5 +1,5 @@
 {
-  "name": "json2ts",
+  "name": "@j2a/json2ts",
   "version": "1.0.0",
   "private": true,
   "description": "json to typescript",
