@@ -1,11 +1,11 @@
 {
   "name": "json2ts",
   "version": "1.0.0",
+  "private": true,
   "description": "json to typescript",
   "repository": "https://github.com/11os/json2any",
   "author": "12",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "dev": "next",
     "build": "next build && next export",
