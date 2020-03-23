@@ -1,4 +1,4 @@
-import { AstNode } from "@json2any/pson/dist/index";
+import { AstNode } from "@json2any/j2a/dist/index";
 
 export interface ParamInfo {
   type: string;

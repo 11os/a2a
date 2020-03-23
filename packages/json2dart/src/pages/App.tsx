@@ -26,16 +26,17 @@ const App: React.FC = () => {
   useEffect(() => {
     new ClipboardJS('.left-copy-button', {
       text: function (trigger) {
-        notification.destroy()
-        notification.success({
-          key: 'clipboard',
-          message: 'success',
-          description: 'save source to ur clipboard.',
-          duration: 2,
-        });
         let source: any = document.querySelector('.right-view')
         return source.innerText
       },
+    }).on("success", () => {
+      notification.destroy()
+      notification.success({
+        key: 'clipboard',
+        message: 'success',
+        description: 'save source to ur clipboard.',
+        duration: 2,
+      });
     })
   }, [])
 

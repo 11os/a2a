@@ -1,5 +1,5 @@
 {
-  "name": "@json2any/pson",
+  "name": "@json2any/j2a",
   "version": "1.0.4",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -19,7 +19,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "test": "jest",
+    "test": "jest --watch",
     "pretest": "npm run build"
   },
   "files": [

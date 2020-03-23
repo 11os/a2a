@@ -52,6 +52,8 @@ export function traverser({
 }
 
 /**
+ * TODO: ts or dart
+ *
  * origin ast to transformed ast
  *
  * @param ast
@@ -75,8 +77,6 @@ export function transformer(ast: AstNode): AstNode {
             params: []
           };
           node._context = expression.params;
-          if (node.type === NodeTypes.ObjectExpression) {
-          }
           parent?._context.push(expression);
         },
         exit(node, parent) {}

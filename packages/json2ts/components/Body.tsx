@@ -35,9 +35,10 @@ export default function Editor() {
     new ClipboardJS('.footer-copy-button', {
       text: function () {
         let source: any = document.querySelector('.editor-body-right')
-        setCopySuccess(true)
         return source.innerText
       },
+    }).on("success", () => {
+      setCopySuccess(true)
     })
   }, [])
 

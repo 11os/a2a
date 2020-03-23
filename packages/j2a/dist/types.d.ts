@@ -51,4 +51,24 @@ export declare type Visitor = {
         exit?: VisitorCallback;
     };
 };
+export declare enum JsonType {
+    int = 0,
+    bigInt = 1,
+    double = 2,
+    string = 3,
+    object = 4,
+    array = 5,
+    bool = 6,
+    null = 7,
+    any = 8
+}
+export declare type JsonItem = {
+    type: JsonType;
+    identifier?: string;
+    comment?: string;
+};
+export declare type LoopAst = {
+    node?: AstNode;
+    clazz?: string;
+};
 //# sourceMappingURL=types.d.ts.map

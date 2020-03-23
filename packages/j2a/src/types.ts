@@ -59,3 +59,26 @@ export type Visitor = {
     exit?: VisitorCallback;
   };
 };
+
+export enum JsonType {
+  int,
+  bigInt,
+  double,
+  string,
+  object,
+  array,
+  bool,
+  null,
+  any
+}
+
+export type JsonItem = {
+  type: JsonType;
+  identifier?: string;
+  comment?: string;
+};
+
+export type LoopAst = {
+  node?: AstNode;
+  clazz?: string;
+};
