@@ -1,7 +1,7 @@
 import React from 'react'
 import { json2dart } from '../utils/json2dart'
 import { LoopInfo, ParamInfo } from '../entity/ClazzInfo'
-import { AstNode } from '@json2any/j2a/dist/index'
+import { AstNode } from '@j2a/j2a/dist/index'
 
 interface ClazzProps {
   result?: string

@@ -1,4 +1,4 @@
-# json2any
+# j2a
 
 ## demo
 
