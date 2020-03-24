@@ -1,5 +1,12 @@
 # j2a
 
+json to any
+
+- [x] typescript
+- [x] dart
+- [ ] java
+- [ ] swift
+
 ## demo
 
 - [json2dart.surge.sh](//json2dart.surge.sh)
