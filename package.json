@@ -4,6 +4,7 @@
   "workspaces": [
     "packages/*"
   ],
+  "repository": "https://github.com/11os/j2a",
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
     "dev:dart": "cd packages/json2dart && yarn dev",
