@@ -1,29 +1,29 @@
-import { Command, flags } from "@oclif/command";
+import * as commander from "commander";
 import { j2a, ParseType } from "./utils/j2a";
+import pkg from "../package.json";
 
-class J2ACli extends Command {
-  static description = "describe the command here";
+const program = new commander.Command();
 
-  static flags = {
-    version: flags.version({ char: "v" }),
-    help: flags.help({ char: "h" }),
-    input: flags.string({ char: "i" }),
-    output: flags.string({ char: "o" }),
-    type: flags.string({ char: "t" })
-  };
+program
+  .version(pkg.version)
+  .option("-i, --input <path>", "json source directory path")
+  .option("-o, --output <path>", "export directory path")
+  .option("-t, --type <type>", "typescript(default) or dart");
 
-  async run() {
-    const { flags } = this.parse(J2ACli);
-    const { input, output, type = "typescript" } = flags;
-    let parseType = ParseType[type];
-    if (!parseType) {
-      this.log(`type [${type}] is not support`);
-      return;
-    }
-    if (input && output) {
-      j2a(input, output, parseType);
-    }
+program.parse(process.argv);
+
+function main() {
+  const { input, output, type = "typescript" } = program;
+  let parseType = ParseType[type];
+  if (!parseType) {
+    console.log(`type <${type}> is not support`);
+    return;
+  }
+  if (input && output) {
+    j2a(input, output, parseType);
+  } else {
+    console.log("j2a -i dir/input -o dir/output --typescript");
   }
 }
 
-export = J2ACli;
+main();
