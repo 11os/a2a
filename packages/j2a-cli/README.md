@@ -16,4 +16,5 @@ Options:
 
 $ ts-node src/index.ts -i demo/input -o demo/output -t typescript
 $ ts-node src/index.ts -i demo/input -o demo/output -t dart
+
 ```
