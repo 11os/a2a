@@ -14,6 +14,6 @@ Options:
   -t, --type <type>    typescript(default) or dart
   -h, --help           display help for command
 
-$ ts-node src/index.ts -i test/input -o test/output -t typescript
-$ ts-node src/index.ts -i test/input -o test/output -t dart
+$ ts-node src/index.ts -i demo/input -o demo/output -t typescript
+$ ts-node src/index.ts -i demo/input -o demo/output -t dart
 ```

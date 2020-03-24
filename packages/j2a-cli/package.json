@@ -5,6 +5,10 @@
   "repository": "https://github.com/11os",
   "author": "12",
   "license": "MIT",
+  "scripts": {
+    "demo:ts": "ts-node src/index.ts -i demo/input -o demo/output -t typescript",
+    "demo:dart": "ts-node src/index.ts -i demo/input -o demo/output -t dart"
+  },
   "dependencies": {
     "commander": "^5.0.0"
   },
