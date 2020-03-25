@@ -1,16 +1,14 @@
 {
-  "packages": [
-    "packages/j2a",
-    "packages/cli"
-  ],
+  "packages": ["packages/j2a", "packages/cli"],
   "version": "1.1.10",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
+    "publishConfig": {
+      "access": "public"
+    },
     "bootstrap": {
-      "npmClientArgs": [
-        "--no-package-lock"
-      ]
+      "npmClientArgs": ["--no-package-lock"]
     }
   }
 }
