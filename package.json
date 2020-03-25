@@ -1,6 +1,5 @@
 {
   "name": "@j2a/j2a",
-  "private": true,
   "workspaces": [
     "packages/j2a",
     "packages/cli"
