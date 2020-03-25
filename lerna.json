@@ -1,6 +1,9 @@
 {
-  "packages": ["packages/j2a", "packages/cli"],
-  "version": "0.0.0",
+  "packages": [
+    "packages/j2a",
+    "packages/cli"
+  ],
+  "version": "1.0.0",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -8,7 +11,9 @@
       "access": "public"
     },
     "bootstrap": {
-      "npmClientArgs": ["--no-package-lock"]
+      "npmClientArgs": [
+        "--no-package-lock"
+      ]
     }
   }
 }
