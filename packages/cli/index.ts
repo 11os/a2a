@@ -1,11 +1,9 @@
 import * as commander from "commander";
-import { j2a, ParseType } from "./utils/j2a";
-import pkg from "../package.json";
+import { j2a, ParseType } from "./src/utils/j2a";
 
 const program = new commander.Command();
 
 program
-  .version(pkg.version)
   .option("-i, --input <path>", "json source directory path")
   .option("-o, --output <path>", "export directory path")
   .option("-t, --type <type>", "typescript(default) or dart");
