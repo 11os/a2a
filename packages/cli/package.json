@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "j2a": "j2a",
+    "build": "tsc -b",
     "demo:ts": "ts-node src/index.ts -i demo/input -o demo/output -t typescript",
     "demo:dart": "ts-node src/index.ts -i demo/input -o demo/output -t dart"
   },
@@ -14,7 +15,7 @@
     "j2a": "./bin/j2a"
   },
   "dependencies": {
-    "@j2a/j2a": "^1.0.0",
+    "@j2a/core": "^1.0.1",
     "commander": "^5.0.0"
   },
   "devDependencies": {

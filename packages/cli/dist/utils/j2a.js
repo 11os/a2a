@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require("fs");
-const j2a_1 = require("@j2a/j2a");
+const core_1 = require("@j2a/core");
 exports.TEMPLATE_TYPESCRIPT = `export interface ###CLAZZ### {###PARAMS###
 }
 
@@ -31,28 +31,28 @@ exports.fileSuffix = {
 };
 exports.KeymapTypescript = (identifier) => {
     return {
-        [j2a_1.JsonType.int]: "number",
-        [j2a_1.JsonType.bigInt]: "number",
-        [j2a_1.JsonType.double]: "number",
-        [j2a_1.JsonType.string]: "string",
-        [j2a_1.JsonType.object]: `${exports.FirstUpperCase(identifier)}`,
-        [j2a_1.JsonType.array]: `${exports.FirstUpperCase(identifier)}[]`,
-        [j2a_1.JsonType.bool]: "boolean",
-        [j2a_1.JsonType.null]: "any",
-        [j2a_1.JsonType.any]: "any"
+        [core_1.JsonType.int]: "number",
+        [core_1.JsonType.bigInt]: "number",
+        [core_1.JsonType.double]: "number",
+        [core_1.JsonType.string]: "string",
+        [core_1.JsonType.object]: `${exports.FirstUpperCase(identifier)}`,
+        [core_1.JsonType.array]: `${exports.FirstUpperCase(identifier)}[]`,
+        [core_1.JsonType.bool]: "boolean",
+        [core_1.JsonType.null]: "any",
+        [core_1.JsonType.any]: "any"
     };
 };
 exports.KeymapDart = (identifier) => {
     return {
-        [j2a_1.JsonType.int]: "number",
-        [j2a_1.JsonType.bigInt]: "Int64",
-        [j2a_1.JsonType.double]: "double",
-        [j2a_1.JsonType.string]: "String",
-        [j2a_1.JsonType.object]: `${exports.FirstUpperCase(identifier)}`,
-        [j2a_1.JsonType.array]: `List<${exports.FirstUpperCase(identifier)}>`,
-        [j2a_1.JsonType.bool]: "bool",
-        [j2a_1.JsonType.null]: "Null",
-        [j2a_1.JsonType.any]: "Null"
+        [core_1.JsonType.int]: "number",
+        [core_1.JsonType.bigInt]: "Int64",
+        [core_1.JsonType.double]: "double",
+        [core_1.JsonType.string]: "String",
+        [core_1.JsonType.object]: `${exports.FirstUpperCase(identifier)}`,
+        [core_1.JsonType.array]: `List<${exports.FirstUpperCase(identifier)}>`,
+        [core_1.JsonType.bool]: "bool",
+        [core_1.JsonType.null]: "Null",
+        [core_1.JsonType.any]: "Null"
     };
 };
 exports.getKeymap = (type) => {
@@ -135,7 +135,7 @@ function generateDart({ json, ast, clazz, keymap }) {
 }
 exports.generateDart = generateDart;
 function parse({ json = "", ast }) {
-    let newAst = ast ? ast : j2a_1.compiler(json);
+    let newAst = ast ? ast : core_1.compiler(json);
     let loops = [];
     let params = [];
     function pushParams({ type, identifier, comment }) {
@@ -145,40 +145,40 @@ function parse({ json = "", ast }) {
             comment: comment ? comment : !identifier ? "⚠️⚠️⚠️ empty name" : ""
         });
     }
-    j2a_1.traverser({
+    core_1.traverser({
         ast: newAst,
         deep: false,
         visitor: {
-            [j2a_1.NodeTypes.ObjectProperty]: {
+            [core_1.NodeTypes.ObjectProperty]: {
                 enter(node, parent) {
-                    var _a, _b, _c, _d, _e, _f, _g;
+                    var _a, _b, _c;
                     let nodeValue = (_a = node.params) === null || _a === void 0 ? void 0 : _a[0];
                     let identifier = node.identifier || "";
                     let clazz = exports.FirstUpperCase(identifier);
-                    switch ((_b = nodeValue) === null || _b === void 0 ? void 0 : _b.type) {
-                        case j2a_1.NodeTypes.BooleanLiteral:
+                    switch (nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.type) {
+                        case core_1.NodeTypes.BooleanLiteral:
                             pushParams({
-                                type: j2a_1.JsonType.bool,
+                                type: core_1.JsonType.bool,
                                 identifier
                             });
                             break;
-                        case j2a_1.NodeTypes.NumericLiteral:
-                            let type = j2a_1.JsonType.int;
-                            let value = (_d = (_c = nodeValue) === null || _c === void 0 ? void 0 : _c.value, (_d !== null && _d !== void 0 ? _d : "0"));
+                        case core_1.NodeTypes.NumericLiteral:
+                            let type = core_1.JsonType.int;
+                            let value = (_b = nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.value) !== null && _b !== void 0 ? _b : "0";
                             if (value.includes(".")) {
-                                type = j2a_1.JsonType.double;
+                                type = core_1.JsonType.double;
                             }
-                            else if (((_e = value) === null || _e === void 0 ? void 0 : _e.length) >= 10) {
-                                type = j2a_1.JsonType.bigInt;
+                            else if ((value === null || value === void 0 ? void 0 : value.length) >= 10) {
+                                type = core_1.JsonType.bigInt;
                             }
                             pushParams({
                                 type,
                                 identifier
                             });
                             break;
-                        case j2a_1.NodeTypes.ObjectExpression:
+                        case core_1.NodeTypes.ObjectExpression:
                             pushParams({
-                                type: j2a_1.JsonType.object,
+                                type: core_1.JsonType.object,
                                 identifier
                             });
                             loops.push({
@@ -186,26 +186,26 @@ function parse({ json = "", ast }) {
                                 clazz: clazz
                             });
                             break;
-                        case j2a_1.NodeTypes.ArrayExpression:
+                        case core_1.NodeTypes.ArrayExpression:
                             pushParams({
-                                type: j2a_1.JsonType.array,
+                                type: core_1.JsonType.array,
                                 identifier
                             });
                             loops.push({
-                                node: (_g = (_f = nodeValue) === null || _f === void 0 ? void 0 : _f.params) === null || _g === void 0 ? void 0 : _g[0],
+                                node: (_c = nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.params) === null || _c === void 0 ? void 0 : _c[0],
                                 clazz: clazz
                             });
                             break;
-                        case j2a_1.NodeTypes.StringLiteral:
+                        case core_1.NodeTypes.StringLiteral:
                             pushParams({
-                                type: j2a_1.JsonType.string,
+                                type: core_1.JsonType.string,
                                 identifier
                             });
                             break;
-                        case j2a_1.NodeTypes.NullLiteral:
+                        case core_1.NodeTypes.NullLiteral:
                         default:
                             pushParams({
-                                type: j2a_1.JsonType.any,
+                                type: core_1.JsonType.any,
                                 identifier,
                                 comment: "⚠️⚠️⚠️ null value"
                             });

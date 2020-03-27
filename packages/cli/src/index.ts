@@ -4,9 +4,12 @@ import { j2a, ParseType } from "./utils/j2a";
 const program = new commander.Command();
 
 program
+  .description("convert path/to/*.json to path/to/*.any")
+  .version(require("../package.json").version)
   .option("-i, --input <path>", "json source directory path")
   .option("-o, --output <path>", "export directory path")
-  .option("-t, --type <type>", "typescript(default) or dart");
+  .option("-t, --type <type>", "typescript dart", "typescript")
+  .option("-w, --watch", "coming soon...");
 
 program.parse(process.argv);
 

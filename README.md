@@ -17,7 +17,7 @@ json to any
 ```
 j2a
   package
-    j2a           core
+    core          core
     j2a-cli       cli
     json2dart     cra
     json2ts       next
@@ -26,15 +26,16 @@ j2a
 ## installation
 
 ```sh
-$ yarn global add @j2a/cli # npm i -g @j2a/cli
-$ j2a -i path/json/input -o path/output -t typescript # convert json to any
+$ yarn global add @j2a/cli # or npm i -g @j2a/cli
 ```
 
 ## usage
 
 ```sh
+$ j2a -i path/json/input -o path/output -t typescript # convert json to any
+
 $ j2a --help
-Usage: index [options]
+Usage: j2a [options]
 
 Options:
   -V, --version        output the version number

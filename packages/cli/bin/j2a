@@ -3,12 +3,14 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const commander = require("commander");
-const j2a_1 = require("../lib/utils/j2a");
+const j2a_1 = require("../dist/utils/j2a");
 const program = new commander.Command();
 program
+  .version(require("../package.json").version)
   .option("-i, --input <path>", "json source directory path")
   .option("-o, --output <path>", "export directory path")
-  .option("-t, --type <type>", "typescript(default) or dart");
+  .option("-t, --type <type>", "typescript dart", "typescript")
+  .option("-w, --watch", "coming soon...");
 program.parse(process.argv);
 function main() {
   const { input, output, type = "typescript" } = program;
