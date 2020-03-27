@@ -103,17 +103,29 @@ export function j2a(
     // console.log(`outputFiles =`, outputFiles);
     // start
     inputFiles.forEach(file => {
-      let json = fs.readFileSync(`${input}/${file.name}`, "utf8");
-      // console.log(json);
-      let fileName = file.name.split(".")[0];
-      let result = generate({
-        json,
-        clazz: fileName,
-        type
-      });
-      fs.writeFileSync(`${output}/${fileName}.${fileSuffix[type]}`, result);
-      console.log(`generate ${output}/${fileName}.${fileSuffix[type]} success`);
+      j2aFile(input, file.name, output, type);
     });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function j2aFile(
+  input: fs.PathLike,
+  fileName: string,
+  output: fs.PathLike,
+  type: ParseTypeEnum
+) {
+  try {
+    let json = fs.readFileSync(`${input}/${fileName}`, "utf8");
+    let prefix = fileName.split(".")[0];
+    let result = generate({
+      json,
+      clazz: prefix,
+      type
+    });
+    fs.writeFileSync(`${output}/${prefix}.${fileSuffix[type]}`, result);
+    console.log(`generate ${output}/${prefix}.${fileSuffix[type]} success`);
   } catch (error) {
     console.log(error);
   }

@@ -81,16 +81,7 @@ function j2a(input, output, type) {
         // console.log(`outputFiles =`, outputFiles);
         // start
         inputFiles.forEach(file => {
-            let json = fs.readFileSync(`${input}/${file.name}`, "utf8");
-            // console.log(json);
-            let fileName = file.name.split(".")[0];
-            let result = generate({
-                json,
-                clazz: fileName,
-                type
-            });
-            fs.writeFileSync(`${output}/${fileName}.${exports.fileSuffix[type]}`, result);
-            console.log(`generate ${output}/${fileName}.${exports.fileSuffix[type]} success`);
+            j2aFile(input, file.name, output, type);
         });
     }
     catch (error) {
@@ -98,6 +89,23 @@ function j2a(input, output, type) {
     }
 }
 exports.j2a = j2a;
+function j2aFile(input, fileName, output, type) {
+    try {
+        let json = fs.readFileSync(`${input}/${fileName}`, "utf8");
+        let prefix = fileName.split(".")[0];
+        let result = generate({
+            json,
+            clazz: prefix,
+            type
+        });
+        fs.writeFileSync(`${output}/${prefix}.${exports.fileSuffix[type]}`, result);
+        console.log(`generate ${output}/${prefix}.${exports.fileSuffix[type]} success`);
+    }
+    catch (error) {
+        console.log(error);
+    }
+}
+exports.j2aFile = j2aFile;
 function generate({ json, clazz, type }) {
     let keymap = exports.getKeymap(type);
     let gen = exports.getGenerator(type);
@@ -151,11 +159,11 @@ function parse({ json = "", ast }) {
         visitor: {
             [core_1.NodeTypes.ObjectProperty]: {
                 enter(node, parent) {
-                    var _a, _b, _c;
+                    var _a, _b, _c, _d, _e, _f, _g;
                     let nodeValue = (_a = node.params) === null || _a === void 0 ? void 0 : _a[0];
                     let identifier = node.identifier || "";
                     let clazz = exports.FirstUpperCase(identifier);
-                    switch (nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.type) {
+                    switch ((_b = nodeValue) === null || _b === void 0 ? void 0 : _b.type) {
                         case core_1.NodeTypes.BooleanLiteral:
                             pushParams({
                                 type: core_1.JsonType.bool,
@@ -164,11 +172,11 @@ function parse({ json = "", ast }) {
                             break;
                         case core_1.NodeTypes.NumericLiteral:
                             let type = core_1.JsonType.int;
-                            let value = (_b = nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.value) !== null && _b !== void 0 ? _b : "0";
+                            let value = (_d = (_c = nodeValue) === null || _c === void 0 ? void 0 : _c.value, (_d !== null && _d !== void 0 ? _d : "0"));
                             if (value.includes(".")) {
                                 type = core_1.JsonType.double;
                             }
-                            else if ((value === null || value === void 0 ? void 0 : value.length) >= 10) {
+                            else if (((_e = value) === null || _e === void 0 ? void 0 : _e.length) >= 10) {
                                 type = core_1.JsonType.bigInt;
                             }
                             pushParams({
@@ -192,7 +200,7 @@ function parse({ json = "", ast }) {
                                 identifier
                             });
                             loops.push({
-                                node: (_c = nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.params) === null || _c === void 0 ? void 0 : _c[0],
+                                node: (_g = (_f = nodeValue) === null || _f === void 0 ? void 0 : _f.params) === null || _g === void 0 ? void 0 : _g[0],
                                 clazz: clazz
                             });
                             break;

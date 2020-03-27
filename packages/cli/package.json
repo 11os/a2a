@@ -1,6 +1,6 @@
 {
   "name": "@j2a/cli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "index.js",
   "repository": "https://github.com/11os/j2a",
   "author": "12",
@@ -15,10 +15,12 @@
     "j2a": "./bin/j2a"
   },
   "dependencies": {
-    "@j2a/core": "^1.0.5",
+    "@j2a/core": "^1.0.6",
+    "chokidar": "^3.3.1",
     "commander": "^5.0.0"
   },
   "devDependencies": {
+    "@types/chokidar": "^2.1.3",
     "ts-node": "^8.8.1",
     "typescript": "^3.8.3"
   },
