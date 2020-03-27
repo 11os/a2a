@@ -15,20 +15,24 @@ json to any
 ## directory
 
 ```
-
 j2a
   package
     j2a           core
     j2a-cli       cli
     json2dart     cra
     json2ts       next
+```
 
+## installation
+
+```sh
+$ yarn global add @j2a/cli # npm i -g @j2a/cli
+$ j2a -i path/json/input -o path/output -t typescript # convert json to any
 ```
 
 ## usage
 
-```
-
+```sh
 $ j2a --help
 Usage: index [options]
 
@@ -38,5 +42,4 @@ Options:
   -o, --output <path>  export directory path
   -t, --type <type>    typescript(default) or dart
   -h, --help           display help for command
-
 ```
