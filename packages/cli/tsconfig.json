@@ -1,21 +1,13 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "allowJs": true,
-    "alwaysStrict": true,
-    "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "lib": ["es2017"],
-    "module": "commonjs",
     "moduleResolution": "node",
-    "noEmit": true,
-    "noFallthroughCasesInSwitch": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
+    "module": "CommonJS",
     "strict": true,
+    "alwaysStrict": true,
     "target": "es2017",
-    "build": true
-  },
-  "include": ["src/**/*", "index.ts"],
-  "exclude": ["node_modules"]
+    "outDir": "lib"
+  }
 }

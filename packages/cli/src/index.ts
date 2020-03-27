@@ -1,5 +1,5 @@
 import * as commander from "commander";
-import { j2a, ParseType } from "./src/utils/j2a";
+import { j2a, ParseType } from "./utils/j2a";
 
 const program = new commander.Command();
 
