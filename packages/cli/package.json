@@ -1,6 +1,6 @@
 {
   "name": "@j2a/cli",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "repository": "https://github.com/11os/j2a",
   "author": "12",
