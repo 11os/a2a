@@ -16,6 +16,12 @@
     "deploy:dart": "cd packages/json2dart && yarn deploy:surge",
     "deploy:ts": "cd packages/json2ts && yarn deploy:surge"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
   "devDependencies": {
     "lerna": "^3.20.2"
   }
