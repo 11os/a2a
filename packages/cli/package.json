@@ -14,6 +14,7 @@
     "j2a": "./bin/j2a"
   },
   "dependencies": {
+    "@j2a/j2a": "^1.0.0",
     "commander": "^5.0.0"
   },
   "devDependencies": {
