@@ -16,10 +16,10 @@ const ClazzItem: React.FC<ClazzProps> = ({ result, ast, clazzName }) => {
       {/* class */}
       <div><span className="blue">class </span><span className="green">{clazzName}</span> {'{'}</div>
       {/* params */}
-      {params.map((ele: ParamInfo) => <div key={ele.key}>  <span className="green">{ele.type}</span> {ele.key};{ele.comment && <span className="red"> // {ele.comment}</span>}</div>)}
+      {params.map((ele: ParamInfo, idx: number) => <div key={ele.key + idx}>  <span className="green">{ele.type}</span> {ele.key};{ele.comment && <span className="red"> // {ele.comment}</span>}</div>)}
       <br />
       {/* define */}
-      <div><span className="green">  {clazzName}</span>{'({ '}{params.map((ele: ParamInfo) => <span key={ele.key}><span className="blue">this</span>.{ele.key}, </span>)}{'})'};</div>
+      <div><span className="green">  {clazzName}</span>{'({ '}{params.map((ele: ParamInfo, idx) => <span key={ele.key + idx}><span className="blue">this</span>.{ele.key}, </span>)}{'})'};</div>
       <br />
       <div><span className="blue">  factory </span><span className="green">{clazzName}</span>.<span className="yellow">fromJson</span>(<span className="green">Map&lt;String, dynamic&gt;</span> json) =&gt; <span className="green">_${clazzName}FromJson</span>(json);</div>
       <br />
