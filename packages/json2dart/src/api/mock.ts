@@ -9,6 +9,7 @@ export const DEMO_JSON = `{
     "pageNum": 1,
     "pageSize": 10
   },
+  "enum": ["a", "o", "e"],
   "data": [{
     "id": "4638977926580224",
     "title": "普通课程",
