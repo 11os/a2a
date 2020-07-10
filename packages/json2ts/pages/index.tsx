@@ -1,9 +1,11 @@
 import { NextPage } from 'next'
 import Body from '../components/Body'
+import GithubCorner from 'react-github-corner';
 
 const IndexPage: NextPage = () => {
   return <div>
     <Body></Body>
+    <GithubCorner href="https://github.com/11os/j2a" />
     <style global jsx>{`
       body {
         padding: 0;

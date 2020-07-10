@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField'
 
-const DEMO_JSON = `{
+export const DEMO_JSON = `{
   "code": 0,
   "bigInt": 9007199254740991,
   "doubleValue": 100.00,
@@ -16,6 +16,7 @@ const DEMO_JSON = `{
     "pageNum": 1,
     "pageSize": 10
   },
+  "enum": ["a", "o", "e"],
   "data": [{
     "id": "4638977926580224",
     "title": "普通课程",
@@ -23,7 +24,8 @@ const DEMO_JSON = `{
     "hasBuy": false,
     "studentNum": 52
   }]
-}`
+}`;
+
 
 export default function Editor() {
   const [json, setJson] = useState(DEMO_JSON)
