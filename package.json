@@ -7,14 +7,15 @@
   "repository": "https://github.com/11os/j2a",
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
-    "dev:dart": "cd packages/json2dart && yarn dev",
-    "dev:ts": "cd packages/json2ts && yarn dev",
-    "dev:j2a": "cd packages/j2a && yarn dev",
-    "build:dart": "cd packages/json2dart && yarn build",
-    "build:ts": "cd packages/json2ts && yarn build",
-    "build:j2a": "cd packages/j2a && yarn build",
-    "deploy:dart": "cd packages/json2dart && yarn deploy:surge",
-    "deploy:ts": "cd packages/json2ts && yarn deploy:surge"
+    "dev:dart": "yarn workspace @j2a/json2dart dev",
+    "dev:ts": "yarn workspace @j2a/json2ts dev",
+    "build:core": "yarn workspace @j2a/core build",
+    "build:cli": "yarn workspace @j2a/cli build",
+    "build:dart": "yarn workspace @j2a/json2dart build",
+    "build:ts": "yarn workspace @j2a/json2ts build",
+    "deploy:dart": "yarn workspace @j2a/json2dart deploy:surge",
+    "deploy:ts": "yarn workspace @j2a/json2ts deploy:surge",
+    "deploy:j2a": "lerna publish -- --access public"
   },
   "husky": {
     "hooks": {

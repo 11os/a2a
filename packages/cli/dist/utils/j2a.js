@@ -159,11 +159,11 @@ function parse({ json = "", ast }) {
         visitor: {
             [core_1.NodeTypes.ObjectProperty]: {
                 enter(node, parent) {
-                    var _a, _b, _c, _d, _e, _f, _g;
+                    var _a, _b, _c;
                     let nodeValue = (_a = node.params) === null || _a === void 0 ? void 0 : _a[0];
                     let identifier = node.identifier || "";
                     let clazz = exports.FirstUpperCase(identifier);
-                    switch ((_b = nodeValue) === null || _b === void 0 ? void 0 : _b.type) {
+                    switch (nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.type) {
                         case core_1.NodeTypes.BooleanLiteral:
                             pushParams({
                                 type: core_1.JsonType.bool,
@@ -172,11 +172,11 @@ function parse({ json = "", ast }) {
                             break;
                         case core_1.NodeTypes.NumericLiteral:
                             let type = core_1.JsonType.int;
-                            let value = (_d = (_c = nodeValue) === null || _c === void 0 ? void 0 : _c.value, (_d !== null && _d !== void 0 ? _d : "0"));
+                            let value = (_b = nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.value) !== null && _b !== void 0 ? _b : "0";
                             if (value.includes(".")) {
                                 type = core_1.JsonType.double;
                             }
-                            else if (((_e = value) === null || _e === void 0 ? void 0 : _e.length) >= 10) {
+                            else if ((value === null || value === void 0 ? void 0 : value.length) >= 10) {
                                 type = core_1.JsonType.bigInt;
                             }
                             pushParams({
@@ -200,7 +200,7 @@ function parse({ json = "", ast }) {
                                 identifier
                             });
                             loops.push({
-                                node: (_g = (_f = nodeValue) === null || _f === void 0 ? void 0 : _f.params) === null || _g === void 0 ? void 0 : _g[0],
+                                node: (_c = nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.params) === null || _c === void 0 ? void 0 : _c[0],
                                 clazz: clazz
                             });
                             break;
