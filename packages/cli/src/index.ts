@@ -22,7 +22,7 @@ function main() {
     return;
   }
   if (!input || !output) {
-    console.log("j2a -i dir/input -o dir/output --typescript");
+    console.log("j2a -i dir/input -o dir/output -t typescript");
     return;
   }
   if (watch) {
