@@ -9,6 +9,7 @@
     "bootstrap": "lerna bootstrap --use-workspaces",
     "dev:dart": "yarn workspace @j2a/json2dart dev",
     "dev:ts": "yarn workspace @j2a/json2ts dev",
+    "dev:p2a": "yarn workspace proto2any dev",
     "build:core": "yarn workspace @j2a/core build",
     "build:cli": "yarn workspace @j2a/cli build",
     "build:dart": "yarn workspace @j2a/json2dart build",

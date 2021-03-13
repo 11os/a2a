@@ -4,6 +4,7 @@ export interface Clazz {
   name: string;
   type: string;
   fields: Field[];
+  isList?: boolean;
 }
 
 export interface Field {
@@ -30,6 +31,7 @@ export function transform(root: Root) {
           return {
             name: key,
             type: node.fields[key].type,
+            isList: node.fields[key].rule === "repeated",
           } as Field;
         }),
       });

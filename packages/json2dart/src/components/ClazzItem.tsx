@@ -24,7 +24,7 @@ const ClazzItem: React.FC<ClazzProps> = ({ result, ast, clazzName }) => {
       <div><span className="blue">  factory </span><span className="green">{clazzName}</span>.<span className="yellow">fromJson</span>(<span className="green">Map&lt;String, dynamic&gt;</span> json) =&gt; <span className="green">_${clazzName}FromJson</span>(json);</div>
       <br />
       <div><span className="green">  Map&lt;String, dynamic&gt;</span><span className="yellow"> toJson</span>() =&gt; <span className="green">_${clazzName}ToJson</span>(<span className="blue">this</span>);</div>
-      }
+      &rbrace;
       <br />
       <br />
       {loop && loop.map((ele: LoopInfo, index: number) => <ClazzItem key={index} ast={ele.node} clazzName={ele.clazz} />)}

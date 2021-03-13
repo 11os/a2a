@@ -4,9 +4,13 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "deploy:surge:ts": "yarn build && surge ./dist/ proto2ts.surge.sh",
+    "deploy:surge:dart": "yarn build && surge ./dist/ proto2dart.surge.sh",
+    "deploy:surge": "yarn deploy:surge:ts && yarn deploy:surge:dart"
   },
   "dependencies": {
+    "clipboard": "^2.0.8",
     "protobufjs": "^6.10.2",
     "vue": "^3.0.5"
   },
