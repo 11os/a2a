@@ -1,5 +1,3 @@
-import { Root } from "protobufjs";
-
 export interface Clazz {
   name: string;
   type: string;
@@ -12,7 +10,7 @@ export interface Field {
   type: string;
 }
 
-export function transform(root: Root) {
+export function transform(root: any) {
   const clazzes: Clazz[] = [];
 
   function deconstruction({
