@@ -39,7 +39,7 @@ json to any
 
 to ts
 
-```typescript
+```ts
 export  interface BaseResponse {
   code: number;
   bigInt: number;
@@ -66,7 +66,7 @@ export  interface Data {
 
 to dart
 
-```
+```dart
 @JsonSerializable()
 class BaseResponse {
   num code;
