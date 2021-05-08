@@ -16,6 +16,7 @@
     "build:ts": "yarn workspace @j2a/json2ts build",
     "deploy:dart": "yarn workspace @j2a/json2dart deploy:surge",
     "deploy:ts": "yarn workspace @j2a/json2ts deploy:surge",
+    "deploy:p2a": "yarn workspace @j2a/proto2any deploy:surge:ts && yarn workspace @j2a/proto2any deploy:surge:dart",
     "deploy:j2a": "lerna publish -- --access public"
   },
   "husky": {
