@@ -54,7 +54,7 @@ import DartItem from "../components/DartItem.vue";
 import TsItem from "../components/TsItem.vue";
 import { getProtoDemo } from "../api/mock";
 import { transform } from "../utils/transformer";
-import protobuf from "protobufjs";
+// import protobuf from "protobufjs";
 import ClipboardJS from "clipboard";
 
 export default defineComponent({
@@ -94,7 +94,7 @@ export default defineComponent({
     });
     watchEffect(() => {
       try {
-        const { root } = protobuf.parse(form.input); // FIXME: Cannot read property 'emptyArray' of undefined cause by protobuf with commonjs
+        const { root } = (window as any).protobuf.parse(form.input); // FIXME: Cannot read property 'emptyArray' of undefined cause by protobuf with commonjs
         form.ast = JSON.stringify(root);
         console.log("ast = ", root);
         const output = transform(root);
