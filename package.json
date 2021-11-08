@@ -6,6 +6,7 @@
   ],
   "repository": "https://github.com/11os/j2a",
   "scripts": {
+    "preinstall": "node scripts/preinstall",
     "dev:dart": "cd packages/json2dart && npm run dev",
     "dev:ts": "cd packages/json2ts && npm run dev",
     "dev:p2a": "cd packages/proto2any && npm run dev",
