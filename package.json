@@ -1,10 +1,10 @@
 {
-  "name": "@a2a/j2a",
+  "name": "@a2a/a2a",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
-  "repository": "https://github.com/11os/j2a",
+  "repository": "https://github.com/11os/a2a",
   "scripts": {
     "preinstall": "node scripts/preinstall",
     "dev:dart": "cd packages/json2dart && npm run dev",
@@ -17,7 +17,7 @@
     "deploy:dart": "cd packages/json2dart && npm run deploy:surge",
     "deploy:ts": "cd packages/json2ts && npm run deploy:surge",
     "deploy:p2a": "cd packages/proto2any && npm rundeploy:surge:ts && cd packages/proto2any deploy:surge:dart",
-    "deploy:j2a": "lerna publish -- --access public"
+    "deploy:a2a": "#TODO"
   },
   "husky": {
     "hooks": {

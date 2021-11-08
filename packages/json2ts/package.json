@@ -3,7 +3,7 @@
   "version": "1.0.6",
   "private": true,
   "description": "json to typescript",
-  "repository": "https://github.com/11os/j2a",
+  "repository": "https://github.com/11os/a2a",
   "author": "12",
   "license": "MIT",
   "scripts": {

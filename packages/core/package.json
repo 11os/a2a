@@ -3,7 +3,7 @@
   "version": "1.0.6",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "repository": "https://github.com/11os/j2a",
+  "repository": "https://github.com/11os/a2a",
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",

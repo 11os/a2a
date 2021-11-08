@@ -1,16 +1,21 @@
-# j2a
+# a2a
 
-json to any
+any to any
 
+from **json** to
 - [x] typescript
 - [x] dart
-- [ ] java
-- [ ] swift
+
+from **proto** to
+- [x] typescript
+- [x] dart
 
 ## demo
 
 - [https://json2dart.surge.sh](https://json2dart.surge.sh)
 - [https://json2ts.surge.sh](https://json2ts.surge.sh)
+- [https://proto2dart.surge.sh](https://proto2dart.surge.sh)
+- [https://proto2ts.surge.sh](https://proto2ts.surge.sh)
 
 ```json
 {
@@ -122,10 +127,10 @@ class Data {
 ## directory
 
 ```
-j2a
+a2a
   package
     core          core
-    j2a-cli       cli
+    cli           cli
     json2dart     cra
     json2ts       next
 ```
@@ -133,16 +138,16 @@ j2a
 ## installation
 
 ```sh
-$ yarn global add @j2a/cli # or npm i -g @j2a/cli
+$ yarn global add @a2a/cli # or npm i -g @a2a/cli
 ```
 
 ## usage
 
 ```sh
-$ j2a -i path/to/json -o path/to/dist -t typescript # convert json to any
+$ a2a -i path/to/json -o path/to/dist -t typescript # convert json to any
 
-$ j2a --help
-Usage: j2a [options]
+$ a2a --help
+Usage: a2a [options]
 
 convert path/to/*.json to path/to/*.any
 

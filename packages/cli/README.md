@@ -1,3 +1,3 @@
-# j2a-cli
+# a2a-cli
 
-json to any cli
+any to any cli

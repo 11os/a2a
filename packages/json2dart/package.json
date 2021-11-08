@@ -2,7 +2,7 @@
   "name": "@a2a/json2dart",
   "version": "1.0.6",
   "private": true,
-  "repository": "https://github.com/11os/j2a",
+  "repository": "https://github.com/11os/a2a",
   "scripts": {
     "dev": "npm run start",
     "start": "react-scripts start",
