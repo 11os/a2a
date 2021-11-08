@@ -12,7 +12,7 @@ export default [
       {
         name: "json",
         file: pkg.main,
-        format: "umd"
+        format: "es"
       }
     ],
     plugins: [

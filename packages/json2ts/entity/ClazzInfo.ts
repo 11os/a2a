@@ -1,4 +1,4 @@
-import { AstNode } from "@j2a/core/dist/index";
+import { AstNode } from "@a2a/core";
 
 export interface ParamInfo {
   type: string;

@@ -1,7 +1,7 @@
-import React from 'react'
-import { json2ts } from '../utils/json2ts'
+import { AstNode } from '@a2a/core'
 import { LoopInfo, ParamInfo } from '../entity/ClazzInfo'
-import { AstNode } from '@j2a/core/dist/index'
+import { json2ts } from '../utils/json2ts'
+import './index.css'
 
 interface ClazzProps {
   result?: string
@@ -20,33 +20,9 @@ const ClazzItem: React.FC<ClazzProps> = ({ result, ast, clazzName }) => {
       <span className="white">&rbrace;</span>
       <br />
       {loop && loop.map((ele: LoopInfo, index: number) => <ClazzItem key={index} ast={ele.node} clazzName={ele.clazz} />)}
-      <style jsx>{`
-        .pink {
-          color: rgb(197, 134, 192);
-        }
-        .green {
-          color: #4ec9b0;
-        }
-        .blue {
-          color: #9cdcfe;
-        }
-        .yellow {
-          color: #dcdcaa;
-        }
-        .red {
-          color: #f84f4f;
-        }
-        .white {
-          color: white;
-        }
-        .align-right {
-          margin-top: 10px;
-          text-align: right;
-        }
-      `}</style>
     </> : null
-  } catch ({ message, location }) {
-    return <div>{message} {location && JSON.stringify(location.start)}</div>
+  } catch (e: any) {
+    return <div>{e?.message} {location && JSON.stringify(e?.location?.start)}</div>
   }
 }
 

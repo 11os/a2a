@@ -1,7 +1,5 @@
+import { AstNode, compiler, NodeTypes, traverser } from "@a2a/core";
 import { LoopInfo, ParamInfo } from "../entity/ClazzInfo";
-import { AstNode, NodeTypes } from "@j2a/core/dist/index";
-import { traverser } from "@j2a/core/dist/index";
-import { compiler } from "@j2a/core/dist/index";
 
 const FirstUpperCase = (value: string) => {
   return value.charAt(0).toUpperCase() + value.slice(1);

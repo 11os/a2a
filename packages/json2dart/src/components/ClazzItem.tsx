@@ -1,7 +1,7 @@
 import React from 'react'
 import { json2dart } from '../utils/json2dart'
 import { LoopInfo, ParamInfo } from '../entity/ClazzInfo'
-import { AstNode } from '@j2a/core/dist/index'
+import { AstNode } from '@a2a/core'
 
 interface ClazzProps {
   result?: string
@@ -16,7 +16,7 @@ const ClazzItem: React.FC<ClazzProps> = ({ result, ast, clazzName }) => {
       {/* class */}
       <div><span className="blue">class </span><span className="green">{clazzName}</span> {'{'}</div>
       {/* params */}
-      {params.map((ele: ParamInfo, idx: number) => <div key={ele.key + idx}>  <span className="green">{ele.type}</span> {ele.key};{ele.comment && <span className="red"> // {ele.comment}</span>}</div>)}
+      {params.map((ele: ParamInfo, idx: number) => <div key={ele.key + idx}>  <span className="green">{ele.type}</span> {ele.key};{ele.comment && <span className="red">{` // ${ele.comment}`}</span>}</div>)}
       <br />
       {/* define */}
       <div><span className="green">  {clazzName}</span>{'({ '}{params.map((ele: ParamInfo, idx) => <span key={ele.key + idx}><span className="blue">this</span>.{ele.key}, </span>)}{'})'};</div>
@@ -29,8 +29,8 @@ const ClazzItem: React.FC<ClazzProps> = ({ result, ast, clazzName }) => {
       <br />
       {loop && loop.map((ele: LoopInfo, index: number) => <ClazzItem key={index} ast={ele.node} clazzName={ele.clazz} />)}
     </> : null
-  } catch ({ message, location }) {
-    return <div>{message} {JSON.stringify(location.start)}</div>
+  } catch (e: any) {
+    return <div>{e?.message} {JSON.stringify(e?.location?.start)}</div>
   }
 }
 

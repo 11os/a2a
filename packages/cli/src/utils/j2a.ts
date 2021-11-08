@@ -8,7 +8,7 @@ import {
   NodeTypes,
   JsonType,
   traverser
-} from "@j2a/core";
+} from "@a2a/core";
 
 export const TEMPLATE_TYPESCRIPT = `export interface ###CLAZZ### {###PARAMS###
 }

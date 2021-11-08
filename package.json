@@ -1,5 +1,5 @@
 {
-  "name": "@j2a/j2a",
+  "name": "@a2a/j2a",
   "private": true,
   "workspaces": [
     "packages/*"
@@ -7,16 +7,16 @@
   "repository": "https://github.com/11os/j2a",
   "scripts": {
     "bootstrap": "lerna bootstrap --use-workspaces",
-    "dev:dart": "yarn workspace @j2a/json2dart dev",
-    "dev:ts": "yarn workspace @j2a/json2ts dev",
-    "dev:p2a": "yarn workspace proto2any dev",
-    "build:core": "yarn workspace @j2a/core build",
-    "build:cli": "yarn workspace @j2a/cli build",
-    "build:dart": "yarn workspace @j2a/json2dart build",
-    "build:ts": "yarn workspace @j2a/json2ts build",
-    "deploy:dart": "yarn workspace @j2a/json2dart deploy:surge",
-    "deploy:ts": "yarn workspace @j2a/json2ts deploy:surge",
-    "deploy:p2a": "yarn workspace @j2a/proto2any deploy:surge:ts && yarn workspace @j2a/proto2any deploy:surge:dart",
+    "dev:dart": "yarn workspace @a2a/json2dart dev",
+    "dev:ts": "yarn workspace @a2a/json2ts dev",
+    "dev:p2a": "yarn workspace @a2a/proto2any dev",
+    "build:core": "yarn workspace @a2a/core build",
+    "build:cli": "yarn workspace @a2a/cli build",
+    "build:dart": "yarn workspace @a2a/json2dart build",
+    "build:ts": "yarn workspace @a2a/json2ts build",
+    "deploy:dart": "yarn workspace @a2a/json2dart deploy:surge",
+    "deploy:ts": "yarn workspace @a2a/json2ts deploy:surge",
+    "deploy:p2a": "yarn workspace @a2a/proto2any deploy:surge:ts && yarn workspace @a2a/proto2any deploy:surge:dart",
     "deploy:j2a": "lerna publish -- --access public"
   },
   "husky": {
@@ -29,6 +29,26 @@
     "*.{ts,tsx}": []
   },
   "devDependencies": {
-    "lerna": "^3.20.2"
+    "@commitlint/cli": "^13.2.1",
+    "@commitlint/config-conventional": "^13.2.0",
+    "@types/jest": "^27.0.2",
+    "@types/node": "^15.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
+    "jest": "^27.3.1",
+    "prettier": "^2.4.1",
+    "stylelint": "^14.0.1",
+    "stylelint-config-standard-scss": "^2.0.0",
+    "ts-jest": "^27.0.7",
+    "ts-node": "^10.4.0"
+  },
+  "packageManager": "pnpm",
+  "pnpm": {
+    "overrides": {
+      "@a2a/core": "workspace:*"
+    }
   }
 }

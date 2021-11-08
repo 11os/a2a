@@ -1,23 +1,24 @@
 {
-  "name": "@j2a/proto2any",
-  "version": "0.0.0",
+  "name": "@a2a/proto2any",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
-    "deploy:surge:ts": "yarn build && surge ./dist/ proto2ts.surge.sh",
-    "deploy:surge:dart": "yarn build && surge ./dist/ proto2dart.surge.sh",
-    "deploy:surge": "yarn deploy:surge:ts && yarn deploy:surge:dart"
+    "deploy:surge:ts": "npm run build && surge ./dist/ proto2ts.surge.sh",
+    "deploy:surge:dart": "npm run build && surge ./dist/ proto2dart.surge.sh",
+    "deploy": "npm run build && surge ./dist/ proto2ts.surge.sh && surge ./dist/ proto2dart.surge.sh"
   },
   "dependencies": {
     "clipboard": "^2.0.8",
-    "rollup-plugin-commonjs": "^10.1.0",
-    "vue": "^3.0.5"
+    "core-js": "^3.6.5",
+    "highlight.js": "^10.6.0",
+    "vue": "^3.2.16"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.1.5",
-    "@vue/compiler-sfc": "^3.0.5",
-    "typescript": "^4.1.3",
-    "vite": "^2.2.4"
+    "@vitejs/plugin-vue": "^1.9.3",
+    "typescript": "^4.4.3",
+    "vite": "^2.6.4",
+    "vue-tsc": "^0.3.0"
   }
 }

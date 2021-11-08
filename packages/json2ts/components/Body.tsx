@@ -4,6 +4,7 @@ import ClipboardJS from 'clipboard'
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField'
+import './index.css'
 
 export const DEMO_JSON = `{
   "code": 0,
@@ -92,48 +93,5 @@ export default function Editor() {
         </Grid>}
       </Grid>
     </div>
-    <style jsx>{`
-      .editor {
-        display: flex;
-        flex-flow: column nowrap;
-        height: 100vh;
-      }
-      .editor > .editor-header {
-        padding: 30px;
-        font-size: 36px;
-        font-weight: bold;
-      }
-      .editor > .editor-body {
-        flex: 1;
-        display: flex;
-      }
-      .editor-body-left {
-        border: 1px solid #999999;
-        flex: 1;
-        margin-left: 30px;
-        padding: 20px;
-        font-size: 18px;
-        line-height: 24px;
-        outline: none;
-      }
-      .editor-body-right {
-        border: 1px solid #1e1e1e;
-        background-color: rgb(30, 30, 30);
-        flex: 1;
-        margin-right: 30px;
-        padding: 20px;
-        font-size: 18px;
-        line-height: 24px;
-        white-space: pre-wrap;
-        overflow: auto;
-        color: white;
-      }
-      .editor > .editor-footer {
-        padding: 30px;
-      }
-      .footer-copy-hint {
-        color: green;
-      }
-    `}</style>
   </div>
 }
