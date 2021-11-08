@@ -1,7 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.FirstUpperCase = exports.parse = exports.generateDart = exports.generateTypescript = exports.generate = exports.j2aFile = exports.j2a = exports.getGenerator = exports.getKeymap = exports.KeymapDart = exports.KeymapTypescript = exports.fileSuffix = exports.ParseType = exports.ParseTypeEnum = exports.TEMPLATE_DART = exports.TEMPLATE_TYPESCRIPT = void 0;
 const fs = require("fs");
-const core_1 = require("@j2a/core");
+const core_1 = require("@a2a/core");
 exports.TEMPLATE_TYPESCRIPT = `export interface ###CLAZZ### {###PARAMS###
 }
 
@@ -29,44 +30,48 @@ exports.fileSuffix = {
     [ParseTypeEnum.typescript]: "ts",
     [ParseTypeEnum.dart]: "dart"
 };
-exports.KeymapTypescript = (identifier) => {
+const KeymapTypescript = (identifier) => {
     return {
         [core_1.JsonType.int]: "number",
         [core_1.JsonType.bigInt]: "number",
         [core_1.JsonType.double]: "number",
         [core_1.JsonType.string]: "string",
-        [core_1.JsonType.object]: `${exports.FirstUpperCase(identifier)}`,
-        [core_1.JsonType.array]: `${exports.FirstUpperCase(identifier)}[]`,
+        [core_1.JsonType.object]: `${(0, exports.FirstUpperCase)(identifier)}`,
+        [core_1.JsonType.array]: `${(0, exports.FirstUpperCase)(identifier)}[]`,
         [core_1.JsonType.bool]: "boolean",
         [core_1.JsonType.null]: "any",
         [core_1.JsonType.any]: "any"
     };
 };
-exports.KeymapDart = (identifier) => {
+exports.KeymapTypescript = KeymapTypescript;
+const KeymapDart = (identifier) => {
     return {
         [core_1.JsonType.int]: "number",
         [core_1.JsonType.bigInt]: "Int64",
         [core_1.JsonType.double]: "double",
         [core_1.JsonType.string]: "String",
-        [core_1.JsonType.object]: `${exports.FirstUpperCase(identifier)}`,
-        [core_1.JsonType.array]: `List<${exports.FirstUpperCase(identifier)}>`,
+        [core_1.JsonType.object]: `${(0, exports.FirstUpperCase)(identifier)}`,
+        [core_1.JsonType.array]: `List<${(0, exports.FirstUpperCase)(identifier)}>`,
         [core_1.JsonType.bool]: "bool",
         [core_1.JsonType.null]: "Null",
         [core_1.JsonType.any]: "Null"
     };
 };
-exports.getKeymap = (type) => {
+exports.KeymapDart = KeymapDart;
+const getKeymap = (type) => {
     return {
         [ParseTypeEnum.typescript]: exports.KeymapTypescript,
         [ParseTypeEnum.dart]: exports.KeymapDart
     }[type];
 };
-exports.getGenerator = (type) => {
+exports.getKeymap = getKeymap;
+const getGenerator = (type) => {
     return {
         [ParseTypeEnum.typescript]: generateTypescript,
         [ParseTypeEnum.dart]: generateDart
     }[type];
 };
+exports.getGenerator = getGenerator;
 function j2a(input, output, type) {
     try {
         // input dir
@@ -107,8 +112,8 @@ function j2aFile(input, fileName, output, type) {
 }
 exports.j2aFile = j2aFile;
 function generate({ json, clazz, type }) {
-    let keymap = exports.getKeymap(type);
-    let gen = exports.getGenerator(type);
+    let keymap = (0, exports.getKeymap)(type);
+    let gen = (0, exports.getGenerator)(type);
     return gen({ json, clazz, keymap });
 }
 exports.generate = generate;
@@ -143,7 +148,7 @@ function generateDart({ json, ast, clazz, keymap }) {
 }
 exports.generateDart = generateDart;
 function parse({ json = "", ast }) {
-    let newAst = ast ? ast : core_1.compiler(json);
+    let newAst = ast ? ast : (0, core_1.compiler)(json);
     let loops = [];
     let params = [];
     function pushParams({ type, identifier, comment }) {
@@ -153,7 +158,7 @@ function parse({ json = "", ast }) {
             comment: comment ? comment : !identifier ? "⚠️⚠️⚠️ empty name" : ""
         });
     }
-    core_1.traverser({
+    (0, core_1.traverser)({
         ast: newAst,
         deep: false,
         visitor: {
@@ -162,7 +167,7 @@ function parse({ json = "", ast }) {
                     var _a, _b, _c;
                     let nodeValue = (_a = node.params) === null || _a === void 0 ? void 0 : _a[0];
                     let identifier = node.identifier || "";
-                    let clazz = exports.FirstUpperCase(identifier);
+                    let clazz = (0, exports.FirstUpperCase)(identifier);
                     switch (nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.type) {
                         case core_1.NodeTypes.BooleanLiteral:
                             pushParams({
@@ -226,6 +231,7 @@ function parse({ json = "", ast }) {
     return { params, loops };
 }
 exports.parse = parse;
-exports.FirstUpperCase = (value) => {
+const FirstUpperCase = (value) => {
     return value.charAt(0).toUpperCase() + value.slice(1);
 };
+exports.FirstUpperCase = FirstUpperCase;

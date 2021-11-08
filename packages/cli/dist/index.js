@@ -20,7 +20,7 @@ function main() {
         return;
     }
     if (!input || !output) {
-        console.log("j2a -i dir/input -o dir/output --typescript");
+        console.log("j2a -i dir/input -o dir/output -t typescript");
         return;
     }
     if (watch) {
@@ -30,10 +30,10 @@ function main() {
             console.log(`${event} ${path}`);
             let paths = path.split("/");
             let fileName = paths[paths.length - 1];
-            j2a_1.j2aFile(input, fileName, output, parseType);
+            (0, j2a_1.j2aFile)(input, fileName, output, parseType);
         });
         return;
     }
-    j2a_1.j2a(input, output, parseType);
+    (0, j2a_1.j2a)(input, output, parseType);
 }
 main();
