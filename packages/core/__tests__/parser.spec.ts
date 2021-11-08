@@ -1,12 +1,12 @@
-import { parser } from "../src/parser";
-import { tokenizer } from "../src/tokenizer";
-import { NodeTypes } from "../src/types";
+import { parser } from '../src/parser'
+import { tokenizer } from '../src/tokenizer'
+import { NodeTypes } from '../src/types'
 
-describe("parse object", () => {
-  test("parse object with all type", () => {
-    let json = `{"a": "string", "b": [123, {"bb": 456}], "c": null, "d": true, "e": 789}`;
-    let token = tokenizer(json);
-    let ast = parser(token);
+describe('parse object', () => {
+  test('parse object with all type', () => {
+    const json = `{"a": "string", "b": [123, {"bb": 456}], "c": null, "d": true, "e": 789}`
+    const token = tokenizer(json)
+    const ast = parser(token)
     expect(ast).toMatchObject({
       type: NodeTypes.Daddy,
       params: [
@@ -15,21 +15,19 @@ describe("parse object", () => {
           params: [
             {
               type: NodeTypes.ObjectProperty,
-              identifier: "a",
-              params: [
-                { type: NodeTypes.StringLiteral, value: "string", params: [] }
-              ]
+              identifier: 'a',
+              params: [{ type: NodeTypes.StringLiteral, value: 'string', params: [] }]
             },
             {
               type: NodeTypes.ObjectProperty,
-              identifier: "b",
+              identifier: 'b',
               params: [
                 {
                   type: NodeTypes.ArrayExpression,
                   params: [
                     {
                       type: NodeTypes.NumericLiteral,
-                      value: "123",
+                      value: '123',
                       params: []
                     },
                     {
@@ -37,8 +35,8 @@ describe("parse object", () => {
                       params: [
                         {
                           type: NodeTypes.ObjectProperty,
-                          identifier: "bb",
-                          params: [{ type: 3, value: "456", params: [] }]
+                          identifier: 'bb',
+                          params: [{ type: 3, value: '456', params: [] }]
                         }
                       ]
                     }
@@ -48,28 +46,22 @@ describe("parse object", () => {
             },
             {
               type: NodeTypes.ObjectProperty,
-              identifier: "c",
-              params: [
-                { type: NodeTypes.NullLiteral, value: "null", params: [] }
-              ]
+              identifier: 'c',
+              params: [{ type: NodeTypes.NullLiteral, value: 'null', params: [] }]
             },
             {
               type: NodeTypes.ObjectProperty,
-              identifier: "d",
-              params: [
-                { type: NodeTypes.BooleanLiteral, value: "true", params: [] }
-              ]
+              identifier: 'd',
+              params: [{ type: NodeTypes.BooleanLiteral, value: 'true', params: [] }]
             },
             {
               type: NodeTypes.ObjectProperty,
-              identifier: "e",
-              params: [
-                { type: NodeTypes.NumericLiteral, value: "789", params: [] }
-              ]
+              identifier: 'e',
+              params: [{ type: NodeTypes.NumericLiteral, value: '789', params: [] }]
             }
           ]
         }
       ]
-    });
-  });
-});
+    })
+  })
+})

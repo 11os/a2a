@@ -7,6 +7,7 @@
   "repository": "https://github.com/11os/a2a",
   "scripts": {
     "preinstall": "node scripts/preinstall",
+    "lint:fix": "eslint --fix --cache --ext .ts,.tsx ./packages",
     "dev:dart": "cd packages/json2dart && npm run dev",
     "dev:ts": "cd packages/json2ts && npm run dev",
     "dev:p2a": "cd packages/proto2any && npm run dev",
@@ -26,7 +27,9 @@
     }
   },
   "lint-staged": {
-    "*.{ts,tsx}": []
+    "*.{ts,tsx}": [
+      "npm run lint:fix"
+    ]
   },
   "devDependencies": {
     "@commitlint/cli": "^13.2.1",

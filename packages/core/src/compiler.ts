@@ -1,12 +1,12 @@
-import { tokenizer } from "./tokenizer";
-import { parser } from "./parser";
-import { transformer } from "./transformer";
+import { tokenizer } from './tokenizer'
+import { parser } from './parser'
+import { transformer } from './transformer'
 
-import { AstNode } from "./types";
+import { AstNode } from './types'
 
 export function compiler(json: string): AstNode {
-  let tokens = tokenizer(json);
-  let ast = parser(tokens);
-  let newAst = transformer(ast);
-  return newAst;
+  const tokens = tokenizer(json)
+  const ast = parser(tokens)
+  const newAst = transformer(ast)
+  return newAst
 }

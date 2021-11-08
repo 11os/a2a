@@ -10,7 +10,7 @@ export default defineConfig({
   css: {
     modules: {
       generateScopedName: '[local]_[hash:base64:6]'
-    },
+    }
   },
   plugins: [
     reactRefresh(),

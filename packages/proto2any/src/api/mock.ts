@@ -23,5 +23,5 @@ message Body {
 }
 message Foot {
   bool isShort = 1;
-}`;
+}`
 }

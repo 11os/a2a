@@ -1,12 +1,12 @@
 export interface Position {
-  line: number;
-  column: number;
+  line: number
+  column: number
 }
 
 export interface Location {
-  start: Position;
-  end: Position;
-  source: string;
+  start: Position
+  end: Position
+  source: string
 }
 
 export enum TokenTypes {
@@ -21,9 +21,9 @@ export enum TokenTypes {
 }
 
 export interface Token {
-  type: TokenTypes;
-  value?: string;
-  location: Location;
+  type: TokenTypes
+  value?: string
+  location: Location
 }
 
 export enum NodeTypes {
@@ -40,25 +40,23 @@ export enum NodeTypes {
 }
 
 export interface AstNode {
-  type: NodeTypes;
-  identifier?: string;
-  params?: AstNode[];
-  value?: string;
-  _context?: any;
+  type: NodeTypes
+  identifier?: string
+  params?: AstNode[]
+  value?: string
+  _context?: any
 }
 
-export type ObjectExpression = {};
-
 export interface VisitorCallback {
-  (node: AstNode, parent?: AstNode): void;
+  (node: AstNode, parent?: AstNode): void
 }
 
 export type Visitor = {
   [key in NodeTypes]?: {
-    enter: VisitorCallback;
-    exit?: VisitorCallback;
-  };
-};
+    enter: VisitorCallback
+    exit?: VisitorCallback
+  }
+}
 
 export enum JsonType {
   int,
@@ -73,12 +71,12 @@ export enum JsonType {
 }
 
 export type JsonItem = {
-  type: JsonType;
-  identifier?: string;
-  comment?: string;
-};
+  type: JsonType
+  identifier?: string
+  comment?: string
+}
 
 export type LoopAst = {
-  node?: AstNode;
-  clazz?: string;
-};
+  node?: AstNode
+  clazz?: string
+}

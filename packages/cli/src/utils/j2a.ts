@@ -84,9 +84,9 @@ export function j2a(input: fs.PathLike, output: fs.PathLike, type: ParseTypeEnum
     })
     // console.log(`inputFiles = `, inputFiles);
     // output dir
-    const outputFiles: fs.Dirent[] = fs.readdirSync(output, {
-      withFileTypes: true
-    })
+    // const outputFiles: fs.Dirent[] = fs.readdirSync(output, {
+    //   withFileTypes: true
+    // })
     // console.log(`outputFiles =`, outputFiles);
     // start
     inputFiles.forEach((file) => {
@@ -128,7 +128,7 @@ export function generateTypescript({
   json?: string
   ast?: AstNode
   clazz?: string
-  keymap: Function
+  keymap: (str?: any) => any
 }) {
   const { params, loops } = ast ? parse({ ast }) : parse({ json })
   let template = TEMPLATE_TYPESCRIPT
@@ -156,7 +156,7 @@ export function generateDart({
   json?: string
   ast?: AstNode
   clazz?: string
-  keymap: Function
+  keymap: (str?: any) => any
 }) {
   const { params, loops } = ast ? parse({ ast }) : parse({ json })
   let template = TEMPLATE_DART
@@ -193,7 +193,7 @@ export function parse({ json = '', ast }: { json?: string; ast?: AstNode }) {
     deep: false,
     visitor: {
       [NodeTypes.ObjectProperty]: {
-        enter(node: AstNode, parent?: AstNode) {
+        enter(node: AstNode) {
           const nodeValue: AstNode | undefined = node.params?.[0]
           const identifier = node.identifier || ''
           const clazz = FirstUpperCase(identifier)

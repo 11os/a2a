@@ -1,18 +1,18 @@
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import typescript from "rollup-plugin-typescript2";
-import del from "rollup-plugin-delete";
-import pkg from "./package.json";
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import typescript from 'rollup-plugin-typescript2'
+import del from 'rollup-plugin-delete'
+import pkg from './package.json'
 
 export default [
   // browser-friendly UMD build
   {
-    input: "src/index.ts",
+    input: 'src/index.ts',
     output: [
       {
-        name: "json",
+        name: 'json',
         file: pkg.main,
-        format: "es"
+        format: 'es'
       }
     ],
     plugins: [
@@ -20,8 +20,8 @@ export default [
       commonjs(), // so Rollup can convert `ms` to an ES module
       typescript(),
       del({
-        targets: ["dist/*"]
+        targets: ['dist/*']
       })
     ]
   }
-];
+]

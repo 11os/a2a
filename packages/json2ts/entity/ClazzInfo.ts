@@ -1,4 +1,4 @@
-import { AstNode } from '@a2a/core';
+import { AstNode } from '@a2a/core'
 
 export interface ParamInfo {
   type: string
