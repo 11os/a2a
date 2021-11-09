@@ -1,23 +1,19 @@
 # a2a
 
-any to any
+让实体生成更简单
 
-[项目结构](./quick_start.md) 
+- [x] json to typescript [https://json2ts.surge.sh](https://json2ts.surge.sh)
+- [x] json to dart [https://json2dart.surge.sh](https://json2dart.surge.sh)
+- [x] protobuf to typescript [https://proto2ts.surge.sh](https://proto2ts.surge.sh)
+- [x] ptotobuf to dart [https://proto2dart.surge.sh](https://proto2dart.surge.sh)
 
-from **json** to
-- [x] typescript
-- [x] dart
+## directory
 
-from **proto** to
-- [x] typescript
-- [x] dart
+[项目结构说明](./INTRODUCTION.md) 
 
 ## demo
 
-- [https://json2dart.surge.sh](https://json2dart.surge.sh)
-- [https://json2ts.surge.sh](https://json2ts.surge.sh)
-- [https://proto2dart.surge.sh](https://proto2dart.surge.sh)
-- [https://proto2ts.surge.sh](https://proto2ts.surge.sh)
+from **json** or **proto**
 
 ```json
 {
@@ -44,7 +40,7 @@ from **proto** to
 }
 ```
 
-to ts
+### to ts
 
 ```ts
 export interface BaseResponse {
@@ -73,7 +69,10 @@ export interface Data {
 }
 ```
 
-to dart
+### to dart
+
+众所周知flutter中无法使用反射，需搭配 [JSON and serialization
+](https://flutter.dev/docs/development/data-and-backend/json)使用
 
 ```dart
 @JsonSerializable()
