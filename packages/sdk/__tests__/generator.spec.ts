@@ -1,5 +1,4 @@
-import { generate } from '../src/generator'
-import { ParseTypeEnum } from '../src/types'
+import { generate, ParseTypeEnum } from '../src/generator'
 
 describe('tokenizer object', () => {
   test('shit', () => {
