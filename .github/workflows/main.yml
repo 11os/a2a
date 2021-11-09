@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    environment: production
     runs-on: ubuntu-latest
     steps:
       - name: checkout
@@ -22,4 +23,4 @@ jobs:
       - name: build-j2d
         run: |
           pnpm build:j2d
-          surge ./packages/json2dart/build/ json2dart.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+          surge ./packages/json2dart/build/ json2dart.surge.sh --token ${{ secrets.ENV_SURGE_TOKEN }}
