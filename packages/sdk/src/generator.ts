@@ -1,7 +1,11 @@
 import { AstNode, compiler, JsonItem, JsonType, LoopAst, NodeTypes, traverser } from '@a2a/core'
 import { TEMPLATE_DART, TEMPLATE_TYPESCRIPT } from './templates'
-import { ParseTypeEnum } from './types'
 import { FirstUpperCase } from './utils'
+
+export enum ParseTypeEnum {
+  typescript = 1,
+  dart
+}
 
 export const ParseType: {
   [key: string]: ParseTypeEnum
