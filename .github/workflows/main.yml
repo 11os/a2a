@@ -1,8 +1,5 @@
 name: CI
 
-env:
-  SERVER: production
-
 on:
   push:
     branches: [master]
@@ -22,7 +19,7 @@ jobs:
           pnpm i
           pnpm build:core
           pnpm build:sdk
+      - name: build-j2d
+        run: pnpm build:j2d
       - name: deploy-j2d
-        run: |
-          pnpm build:j2d
-          surge ./packages/json2dart/build/ json2dart.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+        run: surge ./packages/json2dart/build/ json2dart.surge.sh --token ${{ secrets.SURGE_TOKEN }}
