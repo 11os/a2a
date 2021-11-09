@@ -1,10 +1,11 @@
-import ClipboardJS from 'clipboard'
+import { generate, ParseTypeEnum } from '@a2a/sdk'
 import { notification, Tooltip } from 'antd'
-
-import React, { useState, useRef, useEffect } from 'react'
-import ClazzItem from '../components/ClazzItem'
+import ClipboardJS from 'clipboard'
+import hljs from 'highlight.js/lib/core'
+import dart from 'highlight.js/lib/languages/dart'
+import 'highlight.js/styles/vs2015.css'
+import React, { useEffect, useRef, useState } from 'react'
 import { DEMO_JSON } from '../api/mock'
-
 import './App.css'
 
 const App: React.FC = () => {
@@ -38,10 +39,13 @@ const App: React.FC = () => {
         duration: 2,
       });
     })
+    hljs.registerLanguage('dart', dart)
   }, [])
 
   useEffect(() => {
-    setResult(json)
+    const code = generate({ json, clazz, type: ParseTypeEnum.dart })
+    const result = hljs.highlight(code, { language: 'dart' }).value
+    setResult(result)
   }, [clazz, json])
 
   return (
@@ -65,7 +69,7 @@ const App: React.FC = () => {
         {/* right */}
         <Tooltip placement="topRight" title="↗ love u ↗">
           <div ref={rightView} className="right-view">
-            {result ? <ClazzItem result={result} clazzName={clazz} /> : "edit json & auto generate dart class"}
+            {result ? <div dangerouslySetInnerHTML={{ __html: result }}/> : "edit json & auto generate dart class"}
           </div>
         </Tooltip>
       </div>
