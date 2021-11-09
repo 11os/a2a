@@ -8,6 +8,7 @@
   "scripts": {
     "preinstall": "node scripts/preinstall",
     "lint:fix": "eslint --fix --cache --ext .ts,.tsx ./packages",
+    "lint:style": "stylelint --fix \"**/*.{css,scss}\"",
     "dev:dart": "cd packages/json2dart && npm run dev",
     "dev:ts": "cd packages/json2ts && npm run dev",
     "dev:p2a": "cd packages/proto2any && npm run dev",
@@ -29,6 +30,9 @@
   "lint-staged": {
     "*.{ts,tsx}": [
       "npm run lint:fix"
+    ],
+    "*.{css,scss}": [
+      "npm run lint:style"
     ]
   },
   "devDependencies": {
@@ -44,7 +48,7 @@
     "jest": "^27.3.1",
     "prettier": "^2.4.1",
     "stylelint": "^14.0.1",
-    "stylelint-config-standard-scss": "^2.0.0",
+    "stylelint-config-standard": "^23.0.0",
     "ts-jest": "^27.0.7",
     "ts-node": "^10.4.0"
   },
