@@ -20,6 +20,8 @@ jobs:
           npm i -g pnpm
           pnpm i -g surge
           pnpm i
+          pnpm build:core
+          pnpm build:sdk
       - name: deploy-j2d
         run: |
           pnpm build:j2d

@@ -13,6 +13,7 @@
     "dev:ts": "cd packages/json2ts && npm run dev",
     "dev:p2a": "cd packages/proto2any && npm run dev",
     "build:core": "cd packages/core && npm run build",
+    "build:sdk": "cd packages/sdk && npm run build",
     "build:cli": "cd packages/cli && npm run build",
     "build:j2d": "cd packages/json2dart && npm run build",
     "build:jdt": "cd packages/json2ts && npm run build",

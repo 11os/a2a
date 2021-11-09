@@ -71,7 +71,7 @@ export enum JsonType {
 }
 
 export type JsonItem = {
-  type: JsonType
+  type: JsonType | string
   identifier?: string
   comment?: string
 }
