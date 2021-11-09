@@ -25,4 +25,4 @@ jobs:
       - name: deploy-j2d
         run: |
           pnpm build:j2d
-          surge ./packages/json2dart/build/ json2dart.surge.sh --token ${{ env.SURGE_TOKEN }}
+          surge ./packages/json2dart/build/ json2dart.surge.sh --token ${{ secrets.SURGE_TOKEN }}
