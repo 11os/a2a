@@ -19,7 +19,7 @@ importers:
       jest: ^27.3.1
       prettier: ^2.4.1
       stylelint: ^14.0.1
-      stylelint-config-standard-scss: ^2.0.0
+      stylelint-config-standard: ^23.0.0
       ts-jest: ^27.0.7
       ts-node: ^10.4.0
     devDependencies:
@@ -35,30 +35,22 @@ importers:
       jest: registry.npmjs.org/jest/27.3.1_ts-node@10.4.0
       prettier: registry.npmjs.org/prettier/2.4.1
       stylelint: registry.npmjs.org/stylelint/14.0.1
-      stylelint-config-standard-scss: registry.npmjs.org/stylelint-config-standard-scss/2.0.1_stylelint@14.0.1
+      stylelint-config-standard: registry.npmjs.org/stylelint-config-standard/23.0.0_stylelint@14.0.1
       ts-jest: registry.npmjs.org/ts-jest/27.0.7_@types+jest@27.0.2+jest@27.3.1
       ts-node: registry.npmjs.org/ts-node/10.4.0_@types+node@15.14.9
 
   packages/cli:
     specifiers:
       '@a2a/core': workspace:*
-      '@commitlint/cli': ^8.3.5
-      '@commitlint/config-conventional': ^8.3.4
       chokidar: ^3.3.1
-      commander: ^5.0.0
-      husky: ^4.2.3
-      lint-staged: ^10.0.9
+      commander: ^8.3.0
       ts-node: ^8.8.1
       typescript: ^4.4.3
     dependencies:
       '@a2a/core': link:../core
       chokidar: registry.npmjs.org/chokidar/3.5.2
-      commander: registry.npmjs.org/commander/5.1.0
+      commander: registry.npmjs.org/commander/8.3.0
     devDependencies:
-      '@commitlint/cli': registry.npmjs.org/@commitlint/cli/8.3.5
-      '@commitlint/config-conventional': registry.npmjs.org/@commitlint/config-conventional/8.3.4
-      husky: registry.npmjs.org/husky/4.3.8
-      lint-staged: registry.npmjs.org/lint-staged/10.5.4
       ts-node: registry.npmjs.org/ts-node/8.10.2_typescript@4.4.4
       typescript: registry.npmjs.org/typescript/4.4.4
 
@@ -7771,19 +7763,19 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  registry.npmjs.org/commander/5.1.0:
-    resolution: {integrity: sha512-P0CysNDQ7rtVw4QIQtm+MRxV66vKFSvlsQvGYXZWR3qFU0jlMKHZZZgw8e+8DSah4UDKMqnknRDQz+xuQXQ/Zg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/commander/-/commander-5.1.0.tgz}
-    name: commander
-    version: 5.1.0
-    engines: {node: '>= 6'}
-    dev: false
-
   registry.npmjs.org/commander/6.2.1:
     resolution: {integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/commander/-/commander-6.2.1.tgz}
     name: commander
     version: 6.2.1
     engines: {node: '>= 6'}
     dev: true
+
+  registry.npmjs.org/commander/8.3.0:
+    resolution: {integrity: sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/commander/-/commander-8.3.0.tgz}
+    name: commander
+    version: 8.3.0
+    engines: {node: '>= 12'}
+    dev: false
 
   registry.npmjs.org/common-tags/1.8.0:
     resolution: {integrity: sha512-6P6g0uetGpW/sdyUy/iQQCbFF0kWVMSIVSyYz7Zgjcgh8mgw8PQzDNZeyZ5DQ2gM7LBoZPHmnjz8rUthkBG5tw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/common-tags/-/common-tags-1.8.0.tgz}
@@ -16242,15 +16234,6 @@ packages:
       postcss: registry.npmjs.org/postcss/8.3.11
     dev: true
 
-  registry.npmjs.org/postcss-scss/4.0.2:
-    resolution: {integrity: sha512-xfdkU128CkKKKVAwkyt0M8OdnelJ3MRcIRAPPQkRpoPeuzWY3RIeg7piRCpZ79MK7Q16diLXMMAD9dN5mauPlQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/postcss-scss/-/postcss-scss-4.0.2.tgz}
-    name: postcss-scss
-    version: 4.0.2
-    engines: {node: '>=12.0'}
-    peerDependencies:
-      postcss: ^8.3.3
-    dev: true
-
   registry.npmjs.org/postcss-selector-matches/4.0.0:
     resolution: {integrity: sha512-LgsHwQR/EsRYSqlwdGzeaPKVT0Ml7LAT6E75T8W8xLJY62CE4S/l03BWIt3jT8Taq22kXP08s2SfTSzaraoPww==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/postcss-selector-matches/-/postcss-selector-matches-4.0.0.tgz}
     name: postcss-selector-matches
@@ -19329,22 +19312,6 @@ packages:
       postcss-selector-parser: registry.npmjs.org/postcss-selector-parser/3.1.2
     dev: true
 
-  registry.npmjs.org/stylelint-config-recommended-scss/5.0.1_stylelint@14.0.1:
-    resolution: {integrity: sha512-kVI5lX8jtaw9uNnnxxziw+LhW59m0x/JzGj8zVepeFQJ56eM4HazN4gMyCRQQSLr/8CXlIHGOW34CV5hIMr3FQ==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/stylelint-config-recommended-scss/-/stylelint-config-recommended-scss-5.0.1.tgz}
-    id: registry.npmjs.org/stylelint-config-recommended-scss/5.0.1
-    name: stylelint-config-recommended-scss
-    version: 5.0.1
-    peerDependencies:
-      stylelint: ^14.0.0
-    dependencies:
-      postcss-scss: registry.npmjs.org/postcss-scss/4.0.2
-      stylelint: registry.npmjs.org/stylelint/14.0.1
-      stylelint-config-recommended: registry.npmjs.org/stylelint-config-recommended/6.0.0_stylelint@14.0.1
-      stylelint-scss: registry.npmjs.org/stylelint-scss/4.0.0_stylelint@14.0.1
-    transitivePeerDependencies:
-      - postcss
-    dev: true
-
   registry.npmjs.org/stylelint-config-recommended/6.0.0_stylelint@14.0.1:
     resolution: {integrity: sha512-ZorSSdyMcxWpROYUvLEMm0vSZud2uB7tX1hzBZwvVY9SV/uly4AvvJPPhCcymZL3fcQhEQG5AELmrxWqtmzacw==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/stylelint-config-recommended/-/stylelint-config-recommended-6.0.0.tgz}
     id: registry.npmjs.org/stylelint-config-recommended/6.0.0
@@ -19354,21 +19321,6 @@ packages:
       stylelint: ^14.0.0
     dependencies:
       stylelint: registry.npmjs.org/stylelint/14.0.1
-    dev: true
-
-  registry.npmjs.org/stylelint-config-standard-scss/2.0.1_stylelint@14.0.1:
-    resolution: {integrity: sha512-TW5NLquUSS0mg2N31zzaSbYRbV/CMifSVLdpgo6VdGvjysgYqJOcKM/5bmXucTOsdfqomcPXetFZ3adC7nD+cg==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/stylelint-config-standard-scss/-/stylelint-config-standard-scss-2.0.1.tgz}
-    id: registry.npmjs.org/stylelint-config-standard-scss/2.0.1
-    name: stylelint-config-standard-scss
-    version: 2.0.1
-    peerDependencies:
-      stylelint: ^14.0.0
-    dependencies:
-      stylelint: registry.npmjs.org/stylelint/14.0.1
-      stylelint-config-recommended-scss: registry.npmjs.org/stylelint-config-recommended-scss/5.0.1_stylelint@14.0.1
-      stylelint-config-standard: registry.npmjs.org/stylelint-config-standard/23.0.0_stylelint@14.0.1
-    transitivePeerDependencies:
-      - postcss
     dev: true
 
   registry.npmjs.org/stylelint-config-standard/23.0.0_stylelint@14.0.1:
@@ -19381,22 +19333,6 @@ packages:
     dependencies:
       stylelint: registry.npmjs.org/stylelint/14.0.1
       stylelint-config-recommended: registry.npmjs.org/stylelint-config-recommended/6.0.0_stylelint@14.0.1
-    dev: true
-
-  registry.npmjs.org/stylelint-scss/4.0.0_stylelint@14.0.1:
-    resolution: {integrity: sha512-lIRhPqtI6I065EJ6aI4mWKsmQt8Krnu6aF9XSL9s8Nd2f/cDKImST0T9TfjnUul3ReKYWozkG9dlpNTZH2FB9w==, registry: https://registry.npmjs.com/, tarball: https://registry.npmjs.org/stylelint-scss/-/stylelint-scss-4.0.0.tgz}
-    id: registry.npmjs.org/stylelint-scss/4.0.0
-    name: stylelint-scss
-    version: 4.0.0
-    peerDependencies:
-      stylelint: ^14.0.0
-    dependencies:
-      lodash: registry.npmjs.org/lodash/4.17.21
-      postcss-media-query-parser: registry.npmjs.org/postcss-media-query-parser/0.2.3
-      postcss-resolve-nested-selector: registry.npmjs.org/postcss-resolve-nested-selector/0.1.1
-      postcss-selector-parser: registry.npmjs.org/postcss-selector-parser/6.0.6
-      postcss-value-parser: registry.npmjs.org/postcss-value-parser/4.1.0
-      stylelint: registry.npmjs.org/stylelint/14.0.1
     dev: true
 
   registry.npmjs.org/stylelint/14.0.1:

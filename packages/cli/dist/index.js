@@ -1,10 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable @typescript-eslint/no-var-requires */
-const commander = require("commander");
-const chokidar = require("chokidar");
-const j2a_1 = require("./utils/j2a");
-const program = new commander.Command();
+import * as chokidar from 'chokidar';
+import { j2a, j2aFile, ParseType } from './utils/j2a';
+const { Command } = require('commander');
+const program = new Command();
 program
     .description('convert path/to/*.json to path/to/*.any')
     .version(require('../package.json').version)
@@ -15,7 +13,7 @@ program
 program.parse(process.argv);
 function main() {
     const { input, output, type = 'typescript', watch } = program;
-    const parseType = j2a_1.ParseType[type];
+    const parseType = ParseType[type];
     if (!parseType) {
         console.log(`type <${type}> is not support`);
         return;
@@ -31,10 +29,10 @@ function main() {
             console.log(`${event} ${path}`);
             const paths = path.split('/');
             const fileName = paths[paths.length - 1];
-            (0, j2a_1.j2aFile)(input, fileName, output, parseType);
+            j2aFile(input, fileName, output, parseType);
         });
         return;
     }
-    (0, j2a_1.j2a)(input, output, parseType);
+    j2a(input, output, parseType);
 }
 main();

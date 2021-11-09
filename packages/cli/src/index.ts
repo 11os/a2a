@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import * as chokidar from 'chokidar'
-import * as commander from 'commander'
 import { j2a, j2aFile, ParseType } from './utils/j2a'
+const { Command } = require('commander')
 
-const program = new commander.Command()
+const program = new Command()
 
 program
   .description('convert path/to/*.json to path/to/*.any')

@@ -1,8 +1,10 @@
 {
   "name": "@a2a/core",
   "version": "1.0.6",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "repository": "https://github.com/11os/a2a",
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",

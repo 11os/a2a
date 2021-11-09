@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FirstUpperCase = exports.parse = exports.generateDart = exports.generateTypescript = exports.generate = exports.j2aFile = exports.j2a = exports.getGenerator = exports.getKeymap = exports.KeymapDart = exports.KeymapTypescript = exports.fileSuffix = exports.ParseType = exports.ParseTypeEnum = exports.TEMPLATE_DART = exports.TEMPLATE_TYPESCRIPT = void 0;
-const fs = require("fs");
-const core_1 = require("@a2a/core");
-exports.TEMPLATE_TYPESCRIPT = `export interface ###CLAZZ### {###PARAMS###
+import { compiler, JsonType, NodeTypes, traverser } from '@a2a/core';
+import * as fs from 'fs';
+export const TEMPLATE_TYPESCRIPT = `export interface ###CLAZZ### {###PARAMS###
 }
 
 ###LOOPS###`;
-exports.TEMPLATE_DART = `@JsonSerializable()
+export const TEMPLATE_DART = `@JsonSerializable()
 class ###CLAZZ### {###PARAMS###
   ###CLAZZ###({ ###CONSTRUCTOR### });
 
@@ -17,62 +14,58 @@ class ###CLAZZ### {###PARAMS###
 }
 
 ###LOOPS###`;
-var ParseTypeEnum;
+export var ParseTypeEnum;
 (function (ParseTypeEnum) {
     ParseTypeEnum[ParseTypeEnum["typescript"] = 1] = "typescript";
     ParseTypeEnum[ParseTypeEnum["dart"] = 2] = "dart";
-})(ParseTypeEnum = exports.ParseTypeEnum || (exports.ParseTypeEnum = {}));
-exports.ParseType = {
+})(ParseTypeEnum || (ParseTypeEnum = {}));
+export const ParseType = {
     typescript: ParseTypeEnum.typescript,
     dart: ParseTypeEnum.dart
 };
-exports.fileSuffix = {
-    [ParseTypeEnum.typescript]: "ts",
-    [ParseTypeEnum.dart]: "dart"
+export const fileSuffix = {
+    [ParseTypeEnum.typescript]: 'ts',
+    [ParseTypeEnum.dart]: 'dart'
 };
-const KeymapTypescript = (identifier) => {
+export const KeymapTypescript = (identifier) => {
     return {
-        [core_1.JsonType.int]: "number",
-        [core_1.JsonType.bigInt]: "number",
-        [core_1.JsonType.double]: "number",
-        [core_1.JsonType.string]: "string",
-        [core_1.JsonType.object]: `${(0, exports.FirstUpperCase)(identifier)}`,
-        [core_1.JsonType.array]: `${(0, exports.FirstUpperCase)(identifier)}[]`,
-        [core_1.JsonType.bool]: "boolean",
-        [core_1.JsonType.null]: "any",
-        [core_1.JsonType.any]: "any"
+        [JsonType.int]: 'number',
+        [JsonType.bigInt]: 'number',
+        [JsonType.double]: 'number',
+        [JsonType.string]: 'string',
+        [JsonType.object]: `${FirstUpperCase(identifier)}`,
+        [JsonType.array]: `${FirstUpperCase(identifier)}[]`,
+        [JsonType.bool]: 'boolean',
+        [JsonType.null]: 'any',
+        [JsonType.any]: 'any'
     };
 };
-exports.KeymapTypescript = KeymapTypescript;
-const KeymapDart = (identifier) => {
+export const KeymapDart = (identifier) => {
     return {
-        [core_1.JsonType.int]: "number",
-        [core_1.JsonType.bigInt]: "Int64",
-        [core_1.JsonType.double]: "double",
-        [core_1.JsonType.string]: "String",
-        [core_1.JsonType.object]: `${(0, exports.FirstUpperCase)(identifier)}`,
-        [core_1.JsonType.array]: `List<${(0, exports.FirstUpperCase)(identifier)}>`,
-        [core_1.JsonType.bool]: "bool",
-        [core_1.JsonType.null]: "Null",
-        [core_1.JsonType.any]: "Null"
+        [JsonType.int]: 'number',
+        [JsonType.bigInt]: 'Int64',
+        [JsonType.double]: 'double',
+        [JsonType.string]: 'String',
+        [JsonType.object]: `${FirstUpperCase(identifier)}`,
+        [JsonType.array]: `List<${FirstUpperCase(identifier)}>`,
+        [JsonType.bool]: 'bool',
+        [JsonType.null]: 'Null',
+        [JsonType.any]: 'Null'
     };
 };
-exports.KeymapDart = KeymapDart;
-const getKeymap = (type) => {
+export const getKeymap = (type) => {
     return {
-        [ParseTypeEnum.typescript]: exports.KeymapTypescript,
-        [ParseTypeEnum.dart]: exports.KeymapDart
+        [ParseTypeEnum.typescript]: KeymapTypescript,
+        [ParseTypeEnum.dart]: KeymapDart
     }[type];
 };
-exports.getKeymap = getKeymap;
-const getGenerator = (type) => {
+export const getGenerator = (type) => {
     return {
         [ParseTypeEnum.typescript]: generateTypescript,
         [ParseTypeEnum.dart]: generateDart
     }[type];
 };
-exports.getGenerator = getGenerator;
-function j2a(input, output, type) {
+export function j2a(input, output, type) {
     try {
         // input dir
         const inputFiles = fs.readdirSync(input, {
@@ -80,12 +73,12 @@ function j2a(input, output, type) {
         });
         // console.log(`inputFiles = `, inputFiles);
         // output dir
-        const outputFiles = fs.readdirSync(output, {
-            withFileTypes: true
-        });
+        // const outputFiles: fs.Dirent[] = fs.readdirSync(output, {
+        //   withFileTypes: true
+        // })
         // console.log(`outputFiles =`, outputFiles);
         // start
-        inputFiles.forEach(file => {
+        inputFiles.forEach((file) => {
             j2aFile(input, file.name, output, type);
         });
     }
@@ -93,105 +86,98 @@ function j2a(input, output, type) {
         console.log(error);
     }
 }
-exports.j2a = j2a;
-function j2aFile(input, fileName, output, type) {
+export function j2aFile(input, fileName, output, type) {
     try {
-        let json = fs.readFileSync(`${input}/${fileName}`, "utf8");
-        let prefix = fileName.split(".")[0];
-        let result = generate({
+        const json = fs.readFileSync(`${input}/${fileName}`, 'utf8');
+        const prefix = fileName.split('.')[0];
+        const result = generate({
             json,
             clazz: prefix,
             type
         });
-        fs.writeFileSync(`${output}/${prefix}.${exports.fileSuffix[type]}`, result);
-        console.log(`generate ${output}/${prefix}.${exports.fileSuffix[type]} success`);
+        fs.writeFileSync(`${output}/${prefix}.${fileSuffix[type]}`, result);
+        console.log(`generate ${output}/${prefix}.${fileSuffix[type]} success`);
     }
     catch (error) {
         console.log(error);
     }
 }
-exports.j2aFile = j2aFile;
-function generate({ json, clazz, type }) {
-    let keymap = (0, exports.getKeymap)(type);
-    let gen = (0, exports.getGenerator)(type);
+export function generate({ json, clazz, type }) {
+    const keymap = getKeymap(type);
+    const gen = getGenerator(type);
     return gen({ json, clazz, keymap });
 }
-exports.generate = generate;
-function generateTypescript({ json, ast, clazz, keymap }) {
+export function generateTypescript({ json, ast, clazz, keymap }) {
     const { params, loops } = ast ? parse({ ast }) : parse({ json });
-    let template = exports.TEMPLATE_TYPESCRIPT;
-    let paramsString = params
-        .map(param => `\n  ${param.identifier}: ${keymap(param.identifier)[param.type]};${param.comment && ` // ${param.comment}`}`)
-        .join("");
+    let template = TEMPLATE_TYPESCRIPT;
+    const paramsString = params
+        .map((param) => `\n  ${param.identifier}: ${keymap(param.identifier)[param.type]};${param.comment && ` // ${param.comment}`}`)
+        .join('');
     template = template.replace(/###PARAMS###/g, paramsString);
-    template = template.replace(/###CLAZZ###/g, clazz || "");
-    template = template.replace(/###LOOPS###/g, loops
-        .map(loop => generateTypescript({ ast: loop.node, clazz: loop.clazz, keymap }))
-        .join(""));
+    template = template.replace(/###CLAZZ###/g, clazz || '');
+    template = template.replace(/###LOOPS###/g, loops.map((loop) => generateTypescript({ ast: loop.node, clazz: loop.clazz, keymap })).join(''));
     return template;
 }
-exports.generateTypescript = generateTypescript;
-function generateDart({ json, ast, clazz, keymap }) {
+export function generateDart({ json, ast, clazz, keymap }) {
     const { params, loops } = ast ? parse({ ast }) : parse({ json });
-    let template = exports.TEMPLATE_DART;
-    let paramsString = params
-        .map(param => `\n  ${keymap(param.identifier)[param.type]}: ${param.identifier};${param.comment && ` // ${param.comment}`}`)
-        .join("");
+    let template = TEMPLATE_DART;
+    const paramsString = params
+        .map((param) => `\n  ${keymap(param.identifier)[param.type]}: ${param.identifier};${param.comment && ` // ${param.comment}`}`)
+        .join('');
     template = template.replace(/###PARAMS###/g, paramsString);
-    let constructor = params.map(param => `this.${param.identifier}`).join(", ");
+    const constructor = params.map((param) => `this.${param.identifier}`).join(', ');
     template = template.replace(/###CONSTRUCTOR###/g, constructor);
-    template = template.replace(/###CLAZZ###/g, clazz || "");
-    template = template.replace(/###LOOPS###/g, loops
-        .map(loop => generateDart({ ast: loop.node, clazz: loop.clazz, keymap }))
-        .join(""));
+    template = template.replace(/###CLAZZ###/g, clazz || '');
+    template = template.replace(/###LOOPS###/g, loops.map((loop) => generateDart({ ast: loop.node, clazz: loop.clazz, keymap })).join(''));
     return template;
 }
-exports.generateDart = generateDart;
-function parse({ json = "", ast }) {
-    let newAst = ast ? ast : (0, core_1.compiler)(json);
-    let loops = [];
-    let params = [];
+export function parse({ json = '', ast }) {
+    const newAst = ast ? ast : compiler(json);
+    const loops = [];
+    const params = [];
     function pushParams({ type, identifier, comment }) {
         params.push({
             type,
             identifier,
-            comment: comment ? comment : !identifier ? "⚠️⚠️⚠️ empty name" : ""
+            comment: comment ? comment : !identifier ? '⚠️⚠️⚠️ empty name' : ''
         });
     }
-    (0, core_1.traverser)({
+    traverser({
         ast: newAst,
         deep: false,
         visitor: {
-            [core_1.NodeTypes.ObjectProperty]: {
-                enter(node, parent) {
+            [NodeTypes.ObjectProperty]: {
+                enter(node) {
                     var _a, _b, _c;
-                    let nodeValue = (_a = node.params) === null || _a === void 0 ? void 0 : _a[0];
-                    let identifier = node.identifier || "";
-                    let clazz = (0, exports.FirstUpperCase)(identifier);
+                    const nodeValue = (_a = node.params) === null || _a === void 0 ? void 0 : _a[0];
+                    const identifier = node.identifier || '';
+                    const clazz = FirstUpperCase(identifier);
+                    let type;
+                    let value;
                     switch (nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.type) {
-                        case core_1.NodeTypes.BooleanLiteral:
+                        case NodeTypes.BooleanLiteral:
                             pushParams({
-                                type: core_1.JsonType.bool,
+                                type: JsonType.bool,
                                 identifier
                             });
                             break;
-                        case core_1.NodeTypes.NumericLiteral:
-                            let type = core_1.JsonType.int;
-                            let value = (_b = nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.value) !== null && _b !== void 0 ? _b : "0";
-                            if (value.includes(".")) {
-                                type = core_1.JsonType.double;
+                        case NodeTypes.NumericLiteral:
+                            type = JsonType.int;
+                            value = (_b = nodeValue === null || nodeValue === void 0 ? void 0 : nodeValue.value) !== null && _b !== void 0 ? _b : '0';
+                            if (value.includes('.')) {
+                                type = JsonType.double;
                             }
                             else if ((value === null || value === void 0 ? void 0 : value.length) >= 10) {
-                                type = core_1.JsonType.bigInt;
+                                type = JsonType.bigInt;
                             }
                             pushParams({
                                 type,
                                 identifier
                             });
                             break;
-                        case core_1.NodeTypes.ObjectExpression:
+                        case NodeTypes.ObjectExpression:
                             pushParams({
-                                type: core_1.JsonType.object,
+                                type: JsonType.object,
                                 identifier
                             });
                             loops.push({
@@ -199,9 +185,9 @@ function parse({ json = "", ast }) {
                                 clazz: clazz
                             });
                             break;
-                        case core_1.NodeTypes.ArrayExpression:
+                        case NodeTypes.ArrayExpression:
                             pushParams({
-                                type: core_1.JsonType.array,
+                                type: JsonType.array,
                                 identifier
                             });
                             loops.push({
@@ -209,18 +195,18 @@ function parse({ json = "", ast }) {
                                 clazz: clazz
                             });
                             break;
-                        case core_1.NodeTypes.StringLiteral:
+                        case NodeTypes.StringLiteral:
                             pushParams({
-                                type: core_1.JsonType.string,
+                                type: JsonType.string,
                                 identifier
                             });
                             break;
-                        case core_1.NodeTypes.NullLiteral:
+                        case NodeTypes.NullLiteral:
                         default:
                             pushParams({
-                                type: core_1.JsonType.any,
+                                type: JsonType.any,
                                 identifier,
-                                comment: "⚠️⚠️⚠️ null value"
+                                comment: '⚠️⚠️⚠️ null value'
                             });
                             break;
                     }
@@ -230,8 +216,6 @@ function parse({ json = "", ast }) {
     });
     return { params, loops };
 }
-exports.parse = parse;
-const FirstUpperCase = (value) => {
+export const FirstUpperCase = (value) => {
     return value.charAt(0).toUpperCase() + value.slice(1);
 };
-exports.FirstUpperCase = FirstUpperCase;

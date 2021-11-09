@@ -3,7 +3,7 @@
   "compilerOptions": {
     "lib": ["es2017"],
     "moduleResolution": "node",
-    "module": "CommonJS",
+    "module": "esnext",
     "strict": true,
     "skipLibCheck": true,
     "target": "es2017",
