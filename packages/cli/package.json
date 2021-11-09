@@ -15,7 +15,7 @@
     "a2a": "./bin/a2a"
   },
   "dependencies": {
-    "@a2a/core": "workspace:*",
+    "@a2a/sdk": "workspace:*",
     "chokidar": "^3.3.1",
     "commander": "^8.3.0"
   },

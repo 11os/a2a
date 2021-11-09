@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react'
-import ClazzItem from './ClazzItem'
-import ClipboardJS from 'clipboard'
+import { generate, ParseTypeEnum } from '@a2a/sdk'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
+import ClipboardJS from 'clipboard'
+import hljs from 'highlight.js/lib/core'
+import typescript from 'highlight.js/lib/languages/typescript'
+import 'highlight.js/styles/vs2015.css'
+import { useEffect, useState } from 'react'
 import './index.css'
 
 export const DEMO_JSON = `{
@@ -42,6 +45,7 @@ export default function Editor() {
     }).on('success', () => {
       setCopySuccess(true)
     })
+    hljs.registerLanguage('typescript', typescript)
   }, [])
 
   const demoClick = () => {
@@ -55,7 +59,8 @@ export default function Editor() {
   }
 
   useEffect(() => {
-    setResult(json)
+    const result = generate({ json, clazz, type: ParseTypeEnum.typescript })
+    setResult(hljs.highlight('typescript', result).value)
   }, [clazz, json])
   return (
     <div className="editor">
@@ -70,7 +75,7 @@ export default function Editor() {
           }}
         ></textarea>
         <div className="editor-body-right">
-          {result ? <ClazzItem result={result} clazzName={clazz} /> : 'edit json & auto generate dart class'}
+          {result ? <div dangerouslySetInnerHTML={{ __html: result }}></div> : 'edit json & auto generate dart class'}
         </div>
       </div>
       <div className="editor-footer">

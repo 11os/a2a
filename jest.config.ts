@@ -4,7 +4,7 @@ const config: Config.InitialOptions = {
   preset: 'ts-jest',
   globals: {
     'ts-jest': {
-      tsconfig: './packages/core/tsconfig.json'
+      tsconfig: './packages/sdk/tsconfig.json'
     }
   }
 }

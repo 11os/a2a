@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+import { ParseType } from '@a2a/sdk'
 import * as chokidar from 'chokidar'
-import { j2a, j2aFile, ParseType } from './utils/j2a'
-const { Command } = require('commander')
+import { j2a, j2aFile } from './utils/j2a'
+
+const Command = require('commander')
 
 const program = new Command()
 

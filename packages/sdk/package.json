@@ -1,0 +1,22 @@
+{
+  "name": "@a2a/sdk",
+  "version": "1.0.0",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@a2a/core": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.2",
+    "vite": "^2.6.4",
+    "vite-plugin-dts": "^0.9.3",
+    "ts-jest": "^25.2.1"
+  }
+}
