@@ -2,6 +2,8 @@
 
 any to any
 
+[项目结构](./quick_start.md) 
+
 from **json** to
 - [x] typescript
 - [x] dart
@@ -45,26 +47,28 @@ from **proto** to
 to ts
 
 ```ts
-export  interface BaseResponse {
+export interface BaseResponse {
   code: number;
   bigInt: number;
   doubleValue: number;
-  message: any; // ⚠️⚠️⚠️ contact ur backend developer plz
-  : string; // ⚠️⚠️⚠️ name it
-  auth: bool;
+  message: any; // ⚠️⚠️⚠️ null value
+  : string; // ⚠️⚠️⚠️ empty name
+  auth: boolean;
   pageInfo: PageInfo;
   enum: string[];
   data: Data[];
 }
-export  interface PageInfo {
+
+export interface PageInfo {
   pageNum: number;
   pageSize: number;
 }
-export  interface Data {
+
+export interface Data {
   id: string;
   title: string;
   price: number;
-  hasBuy: bool;
+  hasBuy: boolean;
   studentNum: number;
 }
 ```
@@ -74,30 +78,27 @@ to dart
 ```dart
 @JsonSerializable()
 class BaseResponse {
-  num code;
-  Int64 bigInt;
-  num doubleValue;
-  Null message; // ⚠️⚠️⚠️ contact ur backend developer plz
-  String ; // ⚠️⚠️⚠️ name it
-  bool auth;
-  PageInfo pageInfo;
-  List<String> enum;
-  List<Data> data;
-
-  BaseResponse({ this.code, this.bigInt, this.doubleValue, this.message, this., this.auth, this.pageInfo, this.enum, this.data, });
+  number: code;
+  Int64: bigInt;
+  double: doubleValue;
+  Null: message; // ⚠️⚠️⚠️ null value
+  String: ; // ⚠️⚠️⚠️ empty name
+  bool: auth;
+  PageInfo: pageInfo;
+  undefined: enum;
+  undefined: data;
+  BaseResponse({ this.code, this.bigInt, this.doubleValue, this.message, this., this.auth, this.pageInfo, this.enum, this.data });
 
   factory BaseResponse.fromJson(Map<String, dynamic> json) => _$BaseResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$BaseResponseToJson(this);
 }
 
-
 @JsonSerializable()
 class PageInfo {
-  num pageNum;
-  num pageSize;
-
-  PageInfo({ this.pageNum, this.pageSize, });
+  number: pageNum;
+  number: pageSize;
+  PageInfo({ this.pageNum, this.pageSize });
 
   factory PageInfo.fromJson(Map<String, dynamic> json) => _$PageInfoFromJson(json);
 
@@ -106,13 +107,12 @@ class PageInfo {
 
 @JsonSerializable()
 class Data {
-  String id;
-  String title;
-  num price;
-  bool hasBuy;
-  num studentNum;
-
-  Data({ this.id, this.title, this.price, this.hasBuy, this.studentNum, });
+  String: id;
+  String: title;
+  number: price;
+  bool: hasBuy;
+  number: studentNum;
+  Data({ this.id, this.title, this.price, this.hasBuy, this.studentNum });
 
   factory Data.fromJson(Map<String, dynamic> json) => _$DataFromJson(json);
 
@@ -124,30 +124,21 @@ class Data {
 
 - [https://github.com/11os/p2a](https://github.com/11os/p2a)
 
-## directory
-
-```
-a2a
-  package
-    core          core
-    cli           cli
-    json2dart     cra
-    json2ts       next
-```
-
 ## installation
 
+- [x] 将废弃j2a，扩展为a2a
+
 ```sh
-$ yarn global add @a2a/cli # or npm i -g @a2a/cli
+$ yarn global add @j2a/cli # or npm i -g @j2a/cli
 ```
 
 ## usage
 
 ```sh
-$ a2a -i path/to/json -o path/to/dist -t typescript # convert json to any
+$ j2a -i path/to/json -o path/to/dist -t typescript # convert json to any
 
-$ a2a --help
-Usage: a2a [options]
+$ j2a --help
+Usage: j2a [options]
 
 convert path/to/*.json to path/to/*.any
 
