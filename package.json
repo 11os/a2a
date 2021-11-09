@@ -14,12 +14,12 @@
     "dev:p2a": "cd packages/proto2any && npm run dev",
     "build:core": "cd packages/core && npm run build",
     "build:cli": "cd packages/cli && npm run build",
-    "build:dart": "cd packages/json2dart && npm run build",
-    "build:ts": "cd packages/json2ts && npm run build",
-    "deploy:dart": "cd packages/json2dart && npm run deploy:surge",
-    "deploy:ts": "cd packages/json2ts && npm run deploy:surge",
+    "build:j2d": "cd packages/json2dart && npm run build",
+    "build:jdt": "cd packages/json2ts && npm run build",
+    "deploy:j2d": "cd packages/json2dart && npm run deploy:surge",
+    "deploy:j2t": "cd packages/json2ts && npm run deploy:surge",
     "deploy:p2a": "cd packages/proto2any && npm rundeploy:surge:ts && cd packages/proto2any deploy:surge:dart",
-    "deploy:a2a": "#TODO"
+    "deploy:a2a": "# TODO"
   },
   "husky": {
     "hooks": {

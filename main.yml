@@ -1,0 +1,34 @@
+name: CI
+
+env:
+  SERVER: production
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+        with:
+          branch: master
+      - name: init node.js
+        uses: actions/setup-node@v2
+        with:
+          branch: master
+      - name: install
+        run: |
+          npm i -g pnpm
+          pnpm i -g surge
+          pnpm i
+        with:
+          branch: master
+      - name: deploy-j2d
+        run: |
+          pnpm build:j2d
+          surge ./packages/json2dart/build/ json2dart.surge.sh --token ${{ secrets.SURGE_TOKEN }}
+        with:
+          branch: master
