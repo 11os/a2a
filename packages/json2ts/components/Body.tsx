@@ -59,9 +59,13 @@ export default function Editor() {
   }
 
   useEffect(() => {
-    const code = generate({ json, clazz, type: ParseTypeEnum.typescript })
-    const result = hljs.highlight('typescript', code).value
-    setResult(result)
+    try {
+      const code = generate({ json, clazz, type: ParseTypeEnum.typescript })
+      const result = hljs.highlight('typescript', code).value
+      setResult(result)
+    } catch (e) {
+      setResult(`${e}`)
+    }
   }, [clazz, json])
   return (
     <div className="editor">
