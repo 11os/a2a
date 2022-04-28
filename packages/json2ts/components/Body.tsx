@@ -64,7 +64,7 @@ export default function Editor() {
       const result = hljs.highlight('typescript', code).value
       setResult(result)
     } catch (e) {
-      setResult(`${e}`)
+      setResult(`${e} ${JSON.stringify(e)}`)
     }
   }, [clazz, json])
   return (
